@@ -986,4 +986,8 @@ Public Class FrmMain
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\ballance\Settings", "Fullscreen", "dword:00000000")
         MessageBox.Show("已将您的 Ballance 设置为全屏模式！", "Ballamap", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+        'test
+    End Sub
 End Class

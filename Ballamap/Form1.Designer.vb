@@ -222,6 +222,8 @@ Partial Class FrmMain
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.gpxPersonal = New System.Windows.Forms.GroupBox()
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.btnWindow = New System.Windows.Forms.Button()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.btnFullscreen = New System.Windows.Forms.Button()
@@ -251,8 +253,6 @@ Partial Class FrmMain
         Me.btnRun = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Tab.SuspendLayout()
         Me.TabWelcome.SuspendLayout()
@@ -324,6 +324,7 @@ Partial Class FrmMain
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.gpxPersonal.SuspendLayout()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpbFix.SuspendLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabAbout.SuspendLayout()
@@ -331,7 +332,6 @@ Partial Class FrmMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Tab
@@ -2437,6 +2437,26 @@ Partial Class FrmMain
         Me.gpxPersonal.TabStop = False
         Me.gpxPersonal.Text = "窗口化（仅 32 位）（Beta）"
         '
+        'PictureBox7
+        '
+        Me.PictureBox7.BackgroundImage = Global.Ballamap.My.Resources.Resources.Message_Warning
+        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox7.Location = New System.Drawing.Point(353, 103)
+        Me.PictureBox7.Name = "PictureBox7"
+        Me.PictureBox7.Size = New System.Drawing.Size(33, 33)
+        Me.PictureBox7.TabIndex = 5
+        Me.PictureBox7.TabStop = False
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label31.Location = New System.Drawing.Point(389, 113)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(200, 17)
+        Me.Label31.TabIndex = 3
+        Me.Label31.Text = "目前该功能较不稳定，不推荐使用！"
+        '
         'btnWindow
         '
         Me.btnWindow.Location = New System.Drawing.Point(186, 101)
@@ -2714,26 +2734,6 @@ Partial Class FrmMain
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label31.Location = New System.Drawing.Point(389, 113)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(200, 17)
-        Me.Label31.TabIndex = 3
-        Me.Label31.Text = "目前该功能较不稳定，不推荐使用！"
-        '
-        'PictureBox7
-        '
-        Me.PictureBox7.BackgroundImage = Global.Ballamap.My.Resources.Resources.Message_Warning
-        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox7.Location = New System.Drawing.Point(353, 103)
-        Me.PictureBox7.Name = "PictureBox7"
-        Me.PictureBox7.Size = New System.Drawing.Size(33, 33)
-        Me.PictureBox7.TabIndex = 5
-        Me.PictureBox7.TabStop = False
-        '
         'Label32
         '
         Me.Label32.AutoSize = True
@@ -2852,6 +2852,7 @@ Partial Class FrmMain
         Me.GroupBox1.PerformLayout()
         Me.gpxPersonal.ResumeLayout(False)
         Me.gpxPersonal.PerformLayout()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gpbFix.ResumeLayout(False)
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabAbout.ResumeLayout(False)
@@ -2860,7 +2861,6 @@ Partial Class FrmMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

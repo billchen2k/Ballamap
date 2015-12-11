@@ -146,25 +146,25 @@
     <None Include="app.config" />
     <None Include="Ballamap_1_TemporaryKey.pfx" />
     <None Include="Ballamap_TemporaryKey.pfx" />
-    <None Include="BasedFiles\Data\build" />
-    <None Include="BasedFiles\Data\BuildCache" />
-    <None Include="BasedFiles\Data\Level\Level_01.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_02.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_03.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_04.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_05.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_06.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_07.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_08.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_09.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_10.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_11.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_12.NMO" />
-    <None Include="BasedFiles\Data\Level\Level_13.NMO" />
-    <None Include="BasedFiles\Data\Level\_marker_" />
-    <None Include="BasedFiles\Data\Tools\Fix32.reg" />
-    <None Include="BasedFiles\Data\Tools\Fix64+.reg" />
-    <None Include="BasedFiles\Data\Tools\Fix64.reg" />
+    <None Include="Based_Files\Data\build" />
+    <None Include="Based_Files\Data\BuildCache" />
+    <None Include="Based_Files\Data\Level\Level_01.NMO" />
+    <None Include="Based_Files\Data\Level\Level_02.NMO" />
+    <None Include="Based_Files\Data\Level\Level_03.NMO" />
+    <None Include="Based_Files\Data\Level\Level_04.NMO" />
+    <None Include="Based_Files\Data\Level\Level_05.NMO" />
+    <None Include="Based_Files\Data\Level\Level_06.NMO" />
+    <None Include="Based_Files\Data\Level\Level_07.NMO" />
+    <None Include="Based_Files\Data\Level\Level_08.NMO" />
+    <None Include="Based_Files\Data\Level\Level_09.NMO" />
+    <None Include="Based_Files\Data\Level\Level_10.NMO" />
+    <None Include="Based_Files\Data\Level\Level_11.NMO" />
+    <None Include="Based_Files\Data\Level\Level_12.NMO" />
+    <None Include="Based_Files\Data\Level\Level_13.NMO" />
+    <None Include="Based_Files\Data\Level\_marker_" />
+    <None Include="Based_Files\Data\Tools\Fix32.reg" />
+    <None Include="Based_Files\Data\Tools\Fix64+.reg" />
+    <None Include="Based_Files\Data\Tools\Fix64.reg" />
     <None Include="My Project\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -205,7 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ballamap.ico" />
-    <Content Include="BasedFiles\Data\SKY.png" />
+    <Content Include="Based_Files\Data\SKY.png" />
     <None Include="Fix.png" />
     <None Include="sky.png" />
     <None Include="Message-Warning.png" />

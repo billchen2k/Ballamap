@@ -39,56 +39,8 @@ Public Class FrmMain
         Else
             chkAutoUpdate.Checked = False
         End If
-        TabMapManage_Enter()
-        If My.Settings.AutoUpdate = True Then
-            If File.Exists(Application.StartupPath & "\Data\BuildCache") Then
-                My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Data\BuildCache")
+        'TabMapManage_Enter()
 
-                My.Computer.Network.DownloadFile("http://www.miraclest.cn/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
-            Else
-                My.Computer.Network.DownloadFile("http://www.miraclest.cn/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
-            End If
-
-            Dim writer As StreamReader
-            Dim txt As String
-            Dim newestbuildcache As String
-            Dim newestbuild As String
-            txt = Application.StartupPath & "\Data\BuildCache"
-            writer = File.OpenText(txt)
-            txt = writer.ReadLine()
-            newestbuildcache = writer.ReadLine()
-            Do Until IsNothing(txt)
-                If IsNothing(txt) Then Exit Do
-                newestbuildcache = txt
-                txt = writer.ReadLine()
-            Loop
-            writer.Close()
-
-            newestbuild = newestbuildcache
-            Dim writernow As StreamReader
-            Dim txtnow As String
-            Dim buildnow As String
-            txtnow = Application.StartupPath & "\Data\Build"
-            writernow = File.OpenText(txtnow)
-            txtnow = writernow.ReadLine()
-            buildnow = writernow.ReadLine()
-            Do Until IsNothing(txtnow)
-                If IsNothing(txtnow) Then Exit Do
-                buildnow = txtnow
-                txtnow = writernow.ReadLine()
-            Loop
-
-            If newestbuild > buildnow Then
-                If MessageBox.Show("新版本可用！" & vbCrLf & "最新版本：Build " & newestbuild & vbCrLf & "当前版本：Build " & buildnow & vbCrLf _
-                                & "您可以在 http://eaglelions.ys168.com 下载该更新，现在是否帮您打开该网页？", "Ballamap 更新可用", MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                    System.Diagnostics.Process.Start("http://eaglelions.ys168.com")
-                End If
-
-            Else
-
-            End If
-        End If
     End Sub
     '地图管理天空背景
     Private Sub TabMapManage_Enter() Handles TabMapManage.Enter
@@ -230,7 +182,7 @@ Public Class FrmMain
                 lstBackup.Items.Add(Path.GetFileName(BackupFiles(i)))
             Next
         End If
-
+        labStatus.Text = "就绪"
     End Sub
     Private Sub ResetLevel(ByVal LevelIndex As String)
         ProgressBar.Maximum = 1
@@ -556,9 +508,7 @@ Public Class FrmMain
         btnRestore.Enabled = True
     End Sub
 
-    Private Sub btnRun_Click(sender As Object, e As EventArgs) Handles btnRun.Click
-        Shell(My.Settings.BallancePath.ToString & "\Startup.exe", AppWinStyle.NormalFocus)
-    End Sub
+
 
 
 
@@ -985,5 +935,99 @@ Public Class FrmMain
     Private Sub btnWindow_Click(sender As Object, e As EventArgs) Handles btnWindow.Click
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\ballance\Settings", "Fullscreen", "dword:00000000")
         MessageBox.Show("已将您的 Ballance 设置为全屏模式！", "Ballamap", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub TabMapDownload_Enter(sender As Object, e As EventArgs) Handles TabMapDownload.Enter
+        Dim url As New Uri("http://ballancemaps.ys168.com")
+        WebBrowser1.Url = url
+    End Sub
+    Private Sub AutoUpdateCheking()
+        If My.Settings.AutoUpdate = True Then
+            If File.Exists(Application.StartupPath & "\Data\BuildCache") Then
+                My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Data\BuildCache")
+
+                My.Computer.Network.DownloadFile("http://miraclest.sinaapp.com/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
+            Else
+                My.Computer.Network.DownloadFile("http://miraclest.sinaapp.com/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
+            End If
+
+            Dim writer As StreamReader
+            Dim txt As String
+            Dim newestbuildcache As String
+            Dim newestbuild As String
+            txt = Application.StartupPath & "\Data\BuildCache"
+            writer = File.OpenText(txt)
+            txt = writer.ReadLine()
+            newestbuildcache = writer.ReadLine()
+            Do Until IsNothing(txt)
+                If IsNothing(txt) Then Exit Do
+                newestbuildcache = txt
+                txt = writer.ReadLine()
+            Loop
+            writer.Close()
+
+            newestbuild = newestbuildcache
+            Dim writernow As StreamReader
+            Dim txtnow As String
+            Dim buildnow As String
+            txtnow = Application.StartupPath & "\Data\Build"
+            writernow = File.OpenText(txtnow)
+            txtnow = writernow.ReadLine()
+            buildnow = writernow.ReadLine()
+            Do Until IsNothing(txtnow)
+                If IsNothing(txtnow) Then Exit Do
+                buildnow = txtnow
+                txtnow = writernow.ReadLine()
+            Loop
+
+            If newestbuild > buildnow Then
+                If MessageBox.Show("新版本可用！" & vbCrLf & "最新版本：Build " & newestbuild & vbCrLf & "当前版本：Build " & buildnow & vbCrLf _
+                                & "您可以在 http://eaglelions.ys168.com 下载该更新，现在是否帮您打开该网页？", "Ballamap 更新可用", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                    System.Diagnostics.Process.Start("http://eaglelions.ys168.com")
+
+                End If
+
+            Else
+                labStatus.Text = "当前的 Build " & buildnow & " 已是最新版本！"
+
+
+            End If
+        End If
+        TimerUpdate.Enabled = False
+
+    End Sub
+    Private Sub TimerUpdate_Tick(sender As Object, e As EventArgs) Handles TimerUpdate.Tick
+        labStatus.Text = "正在检查更新..."
+
+        Dim auc As Threading.Thread
+        auc = New Threading.Thread(AddressOf AutoUpdateCheking)
+        auc.Start()
+        TimerUpdate.Enabled = False
+    End Sub
+
+    Private Sub ToolStripbtnRun_ButtonClick(sender As Object, e As EventArgs) Handles ToolStripbtnRun.ButtonClick
+        Shell(My.Settings.BallancePath.ToString & "\Startup.exe", AppWinStyle.NormalFocus)
+    End Sub
+
+    Private Sub ToolStripMenuBtnRun_Click(sender As Object, e As EventArgs) Handles ToolStripMenuBtnRun.Click
+        Shell(My.Settings.BallancePath.ToString & "\Startup.exe", AppWinStyle.NormalFocus)
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuRed.Click
+        TabWelcome.Text = "Hi,There!"
+        Label1.Text = "Hello, This's Bill Chen!:)"
+        Label1.Font = New System.Drawing.Font("微软雅黑", 36, FontStyle.Italic)
+        Label1.ForeColor = Color.Tomato
+        Label2.ForeColor = Color.Tomato
+        Label2.Text = "Long time no see, " & Environment.GetEnvironmentVariable("USERNAME") & "!"
+        Label3.Text = "Greeted From Panzhihua, Sichauan, China By EagleLions."
+        Label3.ForeColor = Color.Tomato
+    End Sub
+
+    Private Sub TimerReset_Tick(sender As Object, e As EventArgs) Handles TimerReset.Tick
+
+        labStatus.Text = "就绪"
+
     End Sub
 End Class

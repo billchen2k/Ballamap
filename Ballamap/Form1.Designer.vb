@@ -22,6 +22,7 @@ Partial Class FrmMain
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.Tab = New System.Windows.Forms.TabControl()
         Me.TabWelcome = New System.Windows.Forms.TabPage()
@@ -248,12 +249,19 @@ Partial Class FrmMain
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.btnRun = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.Label32 = New System.Windows.Forms.Label()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.TimerUpdate = New System.Windows.Forms.Timer(Me.components)
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ProgressBar = New System.Windows.Forms.ToolStripProgressBar()
+        Me.ToolStripbtnRun = New System.Windows.Forms.ToolStripSplitButton()
+        Me.ToolStripMenuBtnRun = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripMenuRed = New System.Windows.Forms.ToolStripMenuItem()
+        Me.labStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.TimerReset = New System.Windows.Forms.Timer(Me.components)
         Me.Tab.SuspendLayout()
         Me.TabWelcome.SuspendLayout()
         Me.TabLevelState.SuspendLayout()
@@ -332,6 +340,7 @@ Partial Class FrmMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab
@@ -1910,7 +1919,7 @@ Partial Class FrmMain
         Me.WebBrowser1.Name = "WebBrowser1"
         Me.WebBrowser1.Size = New System.Drawing.Size(672, 445)
         Me.WebBrowser1.TabIndex = 0
-        Me.WebBrowser1.Url = New System.Uri("http://ballancemaps.ys168.com", System.UriKind.Absolute)
+        Me.WebBrowser1.Url = New System.Uri("", System.UriKind.Relative)
         '
         'TabSky
         '
@@ -2695,44 +2704,16 @@ Partial Class FrmMain
         '
         Me.FolderBrowserDialog1.Description = "请选择您的 Ballance 安装目录。请定位到 startup.exe 所在的目录。"
         '
-        'ProgressBar
-        '
-        Me.ProgressBar.Location = New System.Drawing.Point(-1, 536)
-        Me.ProgressBar.Maximum = 13
-        Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(708, 10)
-        Me.ProgressBar.Step = 1
-        Me.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
-        Me.ProgressBar.TabIndex = 5
-        '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         Me.OpenFileDialog1.Filter = "Ballance 地图文件|*.NMO"
         Me.OpenFileDialog1.Title = "选择您的 NMO 文件后，点击打开进行安装"
         '
-        'btnRun
-        '
-        Me.btnRun.Location = New System.Drawing.Point(12, 494)
-        Me.btnRun.Name = "btnRun"
-        Me.btnRun.Size = New System.Drawing.Size(675, 33)
-        Me.btnRun.TabIndex = 6
-        Me.btnRun.Text = "》》立刻运行 Ballance(&S)"
-        Me.btnRun.UseVisualStyleBackColor = True
-        '
         'OpenFileDialog2
         '
         Me.OpenFileDialog2.FileName = "OpenFileDialog2"
         Me.OpenFileDialog2.Filter = "Ballance 支持文件|*.bmp"
-        '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox4.Location = New System.Drawing.Point(269, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(399, 397)
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
         '
         'Label32
         '
@@ -2745,13 +2726,82 @@ Partial Class FrmMain
         Me.Label32.TabIndex = 7
         Me.Label32.Text = "Hello, Ballamap！ "
         '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox4.Location = New System.Drawing.Point(269, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(399, 397)
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
+        '
+        'TimerUpdate
+        '
+        Me.TimerUpdate.Enabled = True
+        Me.TimerUpdate.Interval = 3000
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgressBar, Me.ToolStripbtnRun, Me.labStatus})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 495)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(704, 23)
+        Me.StatusStrip1.TabIndex = 8
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'ProgressBar
+        '
+        Me.ProgressBar.Maximum = 13
+        Me.ProgressBar.Name = "ProgressBar"
+        Me.ProgressBar.Size = New System.Drawing.Size(100, 17)
+        Me.ProgressBar.Step = 1
+        Me.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
+        '
+        'ToolStripbtnRun
+        '
+        Me.ToolStripbtnRun.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuRed, Me.ToolStripMenuItem1, Me.ToolStripMenuBtnRun})
+        Me.ToolStripbtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
+        Me.ToolStripbtnRun.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripbtnRun.Name = "ToolStripbtnRun"
+        Me.ToolStripbtnRun.Size = New System.Drawing.Size(135, 21)
+        Me.ToolStripbtnRun.Text = "运行 Ballance (&S)"
+        '
+        'ToolStripMenuBtnRun
+        '
+        Me.ToolStripMenuBtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
+        Me.ToolStripMenuBtnRun.Name = "ToolStripMenuBtnRun"
+        Me.ToolStripMenuBtnRun.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuBtnRun.Text = "运行 Ballance"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        '
+        'ToolStripMenuRed
+        '
+        Me.ToolStripMenuRed.Image = Global.Ballamap.My.Resources.Resources.Message_Warning
+        Me.ToolStripMenuRed.Name = "ToolStripMenuRed"
+        Me.ToolStripMenuRed.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuRed.Text = "......"
+        '
+        'labStatus
+        '
+        Me.labStatus.Name = "labStatus"
+        Me.labStatus.Size = New System.Drawing.Size(32, 18)
+        Me.labStatus.Text = "就绪"
+        '
+        'TimerReset
+        '
+        Me.TimerReset.Enabled = True
+        Me.TimerReset.Interval = 12000
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(704, 541)
-        Me.Controls.Add(Me.btnRun)
-        Me.Controls.Add(Me.ProgressBar)
+        Me.ClientSize = New System.Drawing.Size(704, 518)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Tab)
         Me.Controls.Add(Me.Label32)
         Me.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
@@ -2861,6 +2911,8 @@ Partial Class FrmMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2893,7 +2945,6 @@ Partial Class FrmMain
     Friend WithEvents LabState2 As System.Windows.Forms.Label
     Friend WithEvents LabState1 As System.Windows.Forms.Label
     Friend WithEvents BtnRefreshState As System.Windows.Forms.Button
-    Friend WithEvents ProgressBar As System.Windows.Forms.ProgressBar
     Friend WithEvents BtnReset As System.Windows.Forms.Button
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents BtnReset13 As System.Windows.Forms.Button
@@ -3032,7 +3083,6 @@ Partial Class FrmMain
     Friend WithEvents btnRestore As System.Windows.Forms.Button
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents PictureBox17 As System.Windows.Forms.PictureBox
-    Friend WithEvents btnRun As System.Windows.Forms.Button
     Friend WithEvents btnUpdate As System.Windows.Forms.Button
     Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
     Friend WithEvents LinkLabel2 As System.Windows.Forms.LinkLabel
@@ -3096,4 +3146,13 @@ Partial Class FrmMain
     Friend WithEvents PictureBox7 As PictureBox
     Friend WithEvents Label31 As Label
     Friend WithEvents Label32 As Label
+    Friend WithEvents TimerUpdate As Timer
+    Friend WithEvents ToolStripbtnRun As ToolStripSplitButton
+    Friend WithEvents ProgressBar As ToolStripProgressBar
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents ToolStripMenuBtnRun As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuRed As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
+    Friend WithEvents labStatus As ToolStripStatusLabel
+    Friend WithEvents TimerReset As Timer
 End Class

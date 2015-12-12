@@ -114,6 +114,7 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MapTrans.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -206,6 +207,7 @@
   <ItemGroup>
     <Content Include="Ballamap.ico" />
     <Content Include="Based_Files\Data\SKY.png" />
+    <None Include="Launch.png" />
     <None Include="Fix.png" />
     <None Include="sky.png" />
     <None Include="Message-Warning.png" />

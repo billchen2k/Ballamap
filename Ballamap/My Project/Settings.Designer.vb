@@ -101,6 +101,30 @@ Namespace My
                 Me("Title") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Bright")>  _
+        Public Property Theme() As String
+            Get
+                Return CType(Me("Theme"),String)
+            End Get
+            Set
+                Me("Theme") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("#从未检查#")>  _
+        Public Property LastChecked() As String
+            Get
+                Return CType(Me("LastChecked"),String)
+            End Get
+            Set
+                Me("LastChecked") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

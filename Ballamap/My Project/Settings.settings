@@ -14,5 +14,11 @@
     <Setting Name="Title" Type="System.String" Scope="User">
       <Value Profile="(Default)">Ballamap （Ballance 地图管理器）</Value>
     </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Bright</Value>
+    </Setting>
+    <Setting Name="LastChecked" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#从未检查#</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

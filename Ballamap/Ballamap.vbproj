@@ -83,6 +83,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -207,6 +208,8 @@
   <ItemGroup>
     <Content Include="Ballamap.ico" />
     <Content Include="Based_Files\Data\SKY.png" />
+    <None Include="Resources\GithubLLOGO.png" />
+    <None Include="Resources\Github.jpg" />
     <None Include="Launch.png" />
     <None Include="Fix.png" />
     <None Include="sky.png" />

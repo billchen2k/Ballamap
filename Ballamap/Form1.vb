@@ -1,6 +1,9 @@
 ﻿Imports System.IO
 Imports System.Drawing
 Imports Microsoft.Win32
+Imports Microsoft.VisualBasic.Compatibility
+
+
 Public Class FrmMain
     Dim mapshow As Boolean = False
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -10,9 +13,7 @@ Public Class FrmMain
     Private Sub FrmMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If My.Settings.Firstrun = True Then
             Tab.Visible = False
-            MessageBox.Show("更新日志：" & vbCrLf & "1、【新增】附加工具，可以修复程序注册表，同时支持 64 位和 32 位。还可以自定义 Ballamap 标题；" & vbCrLf & "2、【优化】首次进入程序时的体验；" & vbCrLf _
-                        & "3、【优化】核心功能的部分外观；" & vbCrLf & "4、【修复】更新了服务器，解决启动的时候服务器 404 报错的问题；" & vbCrLf _
-                        & "5、【修复】其余数十项微小的体验改动。" & vbCrLf & "编译时间：2015.10.1", "Ballamap 更新日志", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            System.Diagnostics.Process.Start(Application.StartupPath & "\Update20151212.mht")
             My.Settings.Firstrun = False
         End If
         Do
@@ -81,16 +82,19 @@ Public Class FrmMain
     Private Sub CheckLevelOriginal(ByVal LevelIndex As String, ByVal LevelLabel As Label)
         Dim Leveln As New System.IO.FileInfo(My.Settings.BallancePath.ToString & "\3D Entities\Level\Level_" + LevelIndex + ".NMO")
         If Leveln.Length = LengthData(Convert.ToInt32(LevelIndex)) Then
-            LevelLabel.Text = "Level " + LevelIndex + " ：官方关卡"
+            LevelLabel.Text = "Level " + LevelIndex + "：官方关卡        （官方文件长度：" & LengthData(Convert.ToInt32(LevelIndex)) & "；目标文件长度：" & Leveln.Length & "）"
             LevelLabel.ForeColor = Color.Green
         Else
-            LevelLabel.Text = "Level " + LevelIndex + "：非官方关卡"
+            LevelLabel.Text = "Level " + LevelIndex + "：非官方关卡     （官方文件长度：" & LengthData(Convert.ToInt32(LevelIndex)) & "；目标文件长度：" & Leveln.Length & "）"
             LevelLabel.ForeColor = Color.Red
+            My.Settings.LastChecked = My.Settings.LastChecked & "， Level " & LevelIndex & " 非官方；"
         End If
         ProgressBar.Value = Convert.ToInt32(LevelIndex)
     End Sub
 
     Private Sub BtnRefreshState_Click(sender As Object, e As EventArgs) Handles BtnRefreshState.Click
+        labStatus.Text = "正在检测..."
+        My.Settings.LastChecked = Format(Now, "yyyy.MM.dd hh.mm.ss")
         Me.Cursor = Cursors.WaitCursor
         ProgressBar.Value = 0
         ProgressBar.Maximum = 13
@@ -107,7 +111,9 @@ Public Class FrmMain
         CheckLevelOriginal("11", LabState11)
         CheckLevelOriginal("12", LabState12)
         CheckLevelOriginal("13", LabState13)
+        labLast.Text = "上次检查：" & My.Settings.LastChecked
         Me.Cursor = Cursors.Default
+        TimerResetRapid.Enabled = True
     End Sub
     Private Sub ReloadLevels()
         ListBox1.Items.Clear()
@@ -145,6 +151,7 @@ Public Class FrmMain
     Private Sub Tab_Click(sender As Object, e As EventArgs) Handles Tab.Click
         ReloadLevels()
         ProgressBar.Value = 0
+        ProgressBar.Maximum = 13
         btnInstall1.Enabled = False
         btnInstall2.Enabled = False
         btnInstall3.Enabled = False
@@ -186,19 +193,23 @@ Public Class FrmMain
     End Sub
     Private Sub ResetLevel(ByVal LevelIndex As String)
         ProgressBar.Maximum = 1
+
         If LevelIndex <> "" Then
+            labStatus.Text = "正在重置 Level " & LevelIndex & "..."
             If MsgBox("确认重置 Level " + LevelIndex + " ？该操作将不可恢复", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
                 FileCopy(Application.StartupPath & "\Data\Level\Level_" + LevelIndex + ".NMO", My.Settings.BallancePath.ToString & "\3D Entities\Level\Level_" + LevelIndex + ".NMO")
                 ProgressBar.Value = 1
                 MessageBox.Show("重置完成！", "Ballamnap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             End If
         Else
+            labStatus.Text = "正在重置所有关卡..."
             If MsgBox("确认将所有关卡重置？该操作将不可恢复", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
                 My.Computer.FileSystem.CopyDirectory(Application.StartupPath & "\Data\Level", My.Settings.BallancePath.ToString & "\3D Entities\Level", True)
                 ProgressBar.Value = 1
                 MessageBox.Show("重置完成！", "Ballamnap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             End If
         End If
+        TimerResetRapid.Enabled = True
     End Sub
     Private Sub BtnReset_Click(sender As Object, e As EventArgs) Handles BtnReset.Click
         ResetLevel("")
@@ -245,20 +256,24 @@ Public Class FrmMain
     Private Sub TabMaps_Click(sender As Object, e As EventArgs) Handles TabMaps.Click
         ProgressBar.Value = 0
         ReloadLevels()
+        labStatus.Text = "就绪"
     End Sub
     '===================================================lv1======================================================
     Private Sub InstallLevel(ByVal LevelIndex As String, ByVal listbox As ListBox)
+        labStatus.Text = "正在将所选文件安装到 Level " & LevelIndex & "..."
         ProgressBar.Maximum = 1
         ProgressBar.Value = 0
         If MsgBox("确认将" & listbox.SelectedItem.ToString & "安装到 Level " + LevelIndex + " 吗？", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
-            FileCopy(Application.StartupPath & "\Maps\" & listbox.SelectedItem, My.Settings.BallancePath.ToString & "\3d Entities\Level\Level_" + LevelIndex + ".NMO")
+            FileCopy(Application.StartupPath & "\Maps\" & listbox.SelectedItem, My.Settings.BallancePath.ToString & "\3D Entities\Level\Level_" + LevelIndex + ".NMO")
             ProgressBar.Value = 1
             MessageBox.Show("安装成功！", "Ballamnap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         End If
+        TimerResetRapid.Enabled = True
     End Sub
     Private Sub BrowseInstall(ByVal LevelIndex As String)
         ProgressBar.Value = 0
         ProgressBar.Maximum = 1
+        labStatus.Text = "正在将所选文件安装到 Level " & LevelIndex & "..."
         If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
             If MsgBox("确认将所选文件安装到 Level " + LevelIndex + " 吗？", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
                 FileCopy(OpenFileDialog1.FileName, My.Settings.BallancePath.ToString & "\3D Entities\Level\Level_" + LevelIndex + ".NMO")
@@ -266,8 +281,10 @@ Public Class FrmMain
                 ProgressBar.Value = 1
             End If
         End If
+        TimerResetRapid.Enabled = True
     End Sub
     Private Sub DeleteLevel(ByVal listbox As ListBox, ByVal delcheck As PictureBox)
+        labStatus.Text = "正在删除所选文件..."
         If MsgBox("确认要删除" & listbox.SelectedItem & "吗？", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
             My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Maps\" & listbox.SelectedItem)
             listbox.Items.Clear()
@@ -277,6 +294,7 @@ Public Class FrmMain
                 listbox.Items.Add(Path.GetFileName(FileNames(i)))
             Next
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnInstall1.Click
@@ -291,6 +309,8 @@ Public Class FrmMain
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         btnInstall1.Enabled = True
         delete1.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox1.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     '===================================================lv2======================================================
     Private Sub btnInstall2_Click(sender As Object, e As EventArgs) Handles btnInstall2.Click
@@ -299,6 +319,8 @@ Public Class FrmMain
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
         btnInstall2.Enabled = True
         delete2.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox2.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse2_Click(sender As Object, e As EventArgs) Handles btnBrowse2.Click
         BrowseInstall("02")
@@ -313,6 +335,8 @@ Public Class FrmMain
     Private Sub ListBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox3.SelectedIndexChanged
         btnInstall3.Enabled = True
         delete3.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox3.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse3_Click(sender As Object, e As EventArgs) Handles btnBrowse3.Click
         BrowseInstall("03")
@@ -327,6 +351,8 @@ Public Class FrmMain
     Private Sub ListBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox4.SelectedIndexChanged
         btnInstall4.Enabled = True
         delete4.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox4.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse4_Click(sender As Object, e As EventArgs) Handles btnBrowse4.Click
         BrowseInstall("04")
@@ -341,6 +367,8 @@ Public Class FrmMain
     Private Sub ListBox5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox5.SelectedIndexChanged
         btnInstall5.Enabled = True
         delete5.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox5.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse5_Click(sender As Object, e As EventArgs) Handles btnBrowse5.Click
         BrowseInstall("05")
@@ -355,6 +383,8 @@ Public Class FrmMain
     Private Sub ListBox6_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox6.SelectedIndexChanged
         btnInstall6.Enabled = True
         delete6.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox6.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse6_Click(sender As Object, e As EventArgs) Handles btnBrowse6.Click
         BrowseInstall("06")
@@ -369,6 +399,8 @@ Public Class FrmMain
     Private Sub ListBox7_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox7.SelectedIndexChanged
         btnInstall7.Enabled = True
         delete7.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox7.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse7_Click(sender As Object, e As EventArgs) Handles btnBrowse7.Click
         BrowseInstall("07")
@@ -383,6 +415,8 @@ Public Class FrmMain
     Private Sub ListBox8_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox8.SelectedIndexChanged
         btnInstall8.Enabled = True
         delete8.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox8.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse8_Click(sender As Object, e As EventArgs) Handles btnBrowse8.Click
         BrowseInstall("08")
@@ -397,6 +431,8 @@ Public Class FrmMain
     Private Sub ListBox9_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox9.SelectedIndexChanged
         btnInstall9.Enabled = True
         delete9.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox9.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse9_Click(sender As Object, e As EventArgs) Handles btnBrowse9.Click
         BrowseInstall("09")
@@ -411,6 +447,8 @@ Public Class FrmMain
     Private Sub ListBox10_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox10.SelectedIndexChanged
         btnInstall10.Enabled = True
         delete10.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox10.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse10_Click(sender As Object, e As EventArgs) Handles btnBrowse10.Click
         BrowseInstall("10")
@@ -425,6 +463,8 @@ Public Class FrmMain
     Private Sub ListBox11_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox11.SelectedIndexChanged
         btnInstall11.Enabled = True
         delete11.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox11.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse11_Click(sender As Object, e As EventArgs) Handles btnBrowse11.Click
         BrowseInstall("11")
@@ -439,6 +479,8 @@ Public Class FrmMain
     Private Sub ListBox12_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox12.SelectedIndexChanged
         btnInstall12.Enabled = True
         delete12.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox12.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse12_Click(sender As Object, e As EventArgs) Handles btnBrowse12.Click
         BrowseInstall("12")
@@ -453,6 +495,8 @@ Public Class FrmMain
     Private Sub ListBox13_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox13.SelectedIndexChanged
         btnInstall13.Enabled = True
         Delete13.Visible = True
+        Dim SelectedNMOPath As New System.IO.FileInfo(Application.StartupPath & "\Maps\" & ListBox13.SelectedItem)
+        labStatus.Text = " 修改时间：" & SelectedNMOPath.LastWriteTime & "，文件长度：" & SelectedNMOPath.Length
     End Sub
     Private Sub btnBrowse13_Click(sender As Object, e As EventArgs) Handles btnBrowse13.Click
         BrowseInstall("13")
@@ -464,6 +508,7 @@ Public Class FrmMain
     Private Sub btnBackup_Click(sender As Object, e As EventArgs) Handles btnBackup.Click
         ProgressBar.Maximum = 1
         ProgressBar.Value = 0
+        labStatus.Text = "备份排行榜中..."
         FileCopy(My.Settings.BallancePath.ToString & "\Database.tdb", Application.StartupPath & "\Backup\" & Format(Now, "yyyy年MM月dd日 hh时mm分ss秒") & "的备份.bak")
         MessageBox.Show("排行榜备份成功！", "Ballamnap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         lstBackup.Items.Clear()
@@ -474,10 +519,12 @@ Public Class FrmMain
                 lstBackup.Items.Add(Path.GetFileName(BackupFiles(i)))
             Next
         End If
+        TimerResetRapid.Enabled = True
         ProgressBar.Value = 1
     End Sub
 
     Private Sub btnRestore_Click(sender As Object, e As EventArgs) Handles btnRestore.Click
+        labStatus.Text = "恢复排行榜中..."
         ProgressBar.Maximum = 1
         ProgressBar.Value = 0
         If MsgBox("确认将" & lstBackup.SelectedItem.ToString & "还原至 Ballance 目录吗？", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
@@ -485,9 +532,11 @@ Public Class FrmMain
             ProgressBar.Value = 1
             MessageBox.Show("备份还原成功！", "Ballamnap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub PictureBox17_Click(sender As Object, e As EventArgs) Handles PictureBox17.Click
+        labStatus.Text = "删除排行榜中..."
         If MsgBox("确认要删除" & lstBackup.SelectedItem & "吗？", MsgBoxStyle.YesNo, "Ballamap") = MsgBoxResult.Yes Then
             My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Backup\" & lstBackup.SelectedItem)
             PictureBox17.Visible = False
@@ -500,7 +549,7 @@ Public Class FrmMain
                 Next
             End If
         End If
-
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub lstBackup_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBackup.SelectedIndexChanged
@@ -509,17 +558,14 @@ Public Class FrmMain
     End Sub
 
 
-
-
-
     Private Sub btnUpdate_Click() Handles btnUpdate.Click
         ProgressBar.Maximum = 5
         If File.Exists(Application.StartupPath & "\Data\BuildCache") Then
             My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Data\BuildCache")
             ProgressBar.Value = 1
-            My.Computer.Network.DownloadFile("http://www.miraclest.cn/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
+            My.Computer.Network.DownloadFile("http://miraclest.sinaapp.com/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
         Else
-            My.Computer.Network.DownloadFile("http://www.miraclest.cn/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
+            My.Computer.Network.DownloadFile("http://miraclest.sinaapp.com/support/Ballamap/newestversion.txt", Application.StartupPath & "\Data\BuildCache")
         End If
         ProgressBar.Value = 2
         Dim writer As StreamReader
@@ -569,7 +615,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub LinkLabel2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
-        System.Diagnostics.Process.Start("http://eaglelions.ys168.com")
+        System.Diagnostics.Process.Start("https://github.com/Miraclest/Ballamap")
     End Sub
 
     Private Sub LinkLabel3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel3.LinkClicked
@@ -577,9 +623,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub LinkLabel4_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel4.LinkClicked
-        MessageBox.Show("更新日志：" & vbCrLf & "1、【新增】附加工具，可以修复程序注册表，同时支持 64 位和 32 位。还可以自定义 Ballamap 标题；" & vbCrLf & "2、【优化】首次进入程序时的体验；" & vbCrLf _
-                        & "3、【优化】核心功能的部分外观；" & vbCrLf & "4、【修复】更新了服务器，解决启动的时候服务器 404 报错的问题；" & vbCrLf _
-                        & "5、【修复】其余数十项微小的体验改动。" & vbCrLf & "编译时间：2015.10.1", "Ballamap 更新日志", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        System.Diagnostics.Process.Start(Application.StartupPath & "\Update20151212.mht")
     End Sub
 
     Private Sub LinkLabel5_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel5.LinkClicked
@@ -597,6 +641,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnLeading_Click(sender As Object, e As EventArgs) Handles btnLeading.Click
+        labStatus.Text = "正在从程序目录导入原版 Sky 资源，硬盘读写速度不同可能需要几秒到几十秒..."
         ProgressBar.Maximum = 100
         My.Computer.FileSystem.CopyDirectory(My.Settings.BallancePath.ToString & "\Textures\Sky", Application.StartupPath & "\Data\Sky")
         For i = 1 To 60
@@ -606,6 +651,7 @@ Public Class FrmMain
         grpSky.Visible = True
         btnLeading.Visible = False
         MessageBox.Show("重要事项：" & vbCrLf & "注意！为了方便查看效果，天空图片在这里是经过旋转的！Sky_*_Front 和 Sky_*_Down 没有经过旋转，而 Sky_*_Left 逆时针旋转了 90° ， Sky_*_Right 顺时针旋转了 90°，Sky_*_Bakc 旋转了 180°。这不会影响到文件本身，所以：" & vbCrLf & "1、你是从其他地方下载的背景：您的文件应该是正常角度的，您无需担心，在这里只是经过了旋转。" & vbCrLf & "2、您是背景制作者：您应该有充足的经验判断您的图片角度是否正常，若您的图片角度是正常的，到这里经过旋转看起来 5 张图片将会是天衣无缝的，如果在这里经过旋转看起来图片角度除了差错，这通常是您的图片问题。" & vbCrLf & vbCrLf & "您以后可以单击右上角的感叹号再次查看该信息。", "重要事项", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        TimerResetRapid.Enabled = True
     End Sub
     Private Sub DisposePicuture()
 
@@ -761,6 +807,7 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnRestoreTheme_Click(sender As Object, e As EventArgs) Handles btnRestoreTheme.Click
+        labStatus.Text = "正在还原选定主题..."
         If MessageBox.Show("确认要还原该主题至官方主题吗？该操作将不可恢复！", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
             DisposePicuture()
 
@@ -779,9 +826,11 @@ Public Class FrmMain
             MessageBox.Show("该主题已经还原成功！", "Ballamap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             SkyLoading(radSky)
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub btnRestoreAll_Click(sender As Object, e As EventArgs) Handles btnRestoreAll.Click
+        labStatus.Text = "正在还原所有主题..."
         If MessageBox.Show("确定要将 所有主题 都还原为官方主题吗？该操作将不可恢复！", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes _
             And MessageBox.Show("再次确认：确定要将 所有主题 都还原为官方主题吗？该操作真的不可恢复！！！！", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
             DisposePicuture()
@@ -795,8 +844,10 @@ Public Class FrmMain
         End If
         MessageBox.Show("还原成功！", "Ballamap", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         SkyLoading(radSky)
+        TimerResetRapid.Enabled = True
     End Sub
     Private Sub EditSky(ByVal Sky As String)
+        labStatus.Text = "正在编辑主题..."
         ProgressBar.Maximum = 1
         ProgressBar.Value = 0
         If OpenFileDialog2.ShowDialog = Windows.Forms.DialogResult.OK Then
@@ -809,41 +860,52 @@ Public Class FrmMain
         End If
         OpenFileDialog2.Dispose()
         SkyLoading(radSky)
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub picEditFront_Click(sender As Object, e As EventArgs) Handles picEditFront.Click
+        labStatus.Text = "正在编辑 Sky_" & radSky & "_Front.BMP"
         If radSky <> "Null" Then
             OpenFileDialog2.Title = "请选择您的文件，将替换至 Sky_" & radSky & "_Front.BMP"
             EditSky(radSky & "_Front")
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub picEditLeft_Click(sender As Object, e As EventArgs) Handles picEditLeft.Click
+        labStatus.Text = "正在编辑 Sky_" & radSky & "_Left.BMP"
         If radSky <> "Null" Then
             OpenFileDialog2.Title = "请选择您的文件，将替换至 Sky_" & radSky & "_Left.BMP"
             EditSky(radSky & "_Left")
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub PicEditDown_Click(sender As Object, e As EventArgs) Handles PicEditDown.Click
+        labStatus.Text = "正在编辑 Sky_" & radSky & "_Down.BMP"
         If radSky <> "Null" Then
             OpenFileDialog2.Title = "请选择您的文件，将替换至 Sky_" & radSky & "_Down.BMP"
             EditSky(radSky & "_Down")
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub picEditRight_Click(sender As Object, e As EventArgs) Handles picEditRight.Click
+        labStatus.Text = "正在编辑 Sky_" & radSky & "_Right.BMP"
         If radSky <> "Null" Then
             OpenFileDialog2.Title = "请选择您的文件，将替换至 Sky_" & radSky & "_Right.BMP"
             EditSky(radSky & "_Right")
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub PicEditBack_Click(sender As Object, e As EventArgs)
+        labStatus.Text = "正在编辑 Sky_" & radSky & "_Back.BMP"
         If radSky <> "Null" Then
             OpenFileDialog2.Title = "请选择您的文件，将替换至 Sky_" & radSky & "_Back.BMP"
             EditSky(radSky & "_Back")
         End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
@@ -858,50 +920,55 @@ Public Class FrmMain
 
     End Sub
 
-    Private Sub btnFix_x64_Click(sender As Object, e As EventArgs) Handles btnFix_x64.Click
-        Me.Cursor = Cursors.AppStarting
-        ProgressBar.Value = ３
-        File.Copy(Application.StartupPath & "\Data\Tools\Fix64.reg", Application.StartupPath & "\Data\Tools\Fix64+.reg", True)
-        If MessageBox.Show("您确定要进行修复程序吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes _
-            And MessageBox.Show("请再次确认您的系统为 64 位。确认后将开始修复注册表项，请在接下来弹出的授权框中选择是。", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
-            Dim fix64 As System.IO.StreamWriter = New System.IO.StreamWriter(Application.StartupPath & "\Data\Tools\Fix64+.reg", True, System.Text.Encoding.Unicode)
-            Dim PathReg As String = TxtPath.Text.Replace("\", "\\")
-            ProgressBar.Value = 9
-            fix64.WriteLine(Chr(34) & "TargetDir" & Chr(34) & "=" & Chr(34) & PathReg & Chr(34))
-            fix64.Close()
-            System.Threading.Thread.Sleep(1000)
-            System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Fix64+.reg")
-        End If
-        System.Threading.Thread.Sleep(3000)
-        ProgressBar.Value = 13
-        Me.Cursor = Cursors.Default
-    End Sub
+
 
     Private Sub btnFix_x86_Click(sender As Object, e As EventArgs) Handles btnFix_x86.Click
-        Me.Cursor = Cursors.AppStarting
-        ProgressBar.Value = ３
-        File.Copy(Application.StartupPath & "\Data\Tools\Fix32.reg", Application.StartupPath & "\Data\Tools\Fix32+.reg", True)
-        If MessageBox.Show("您确定要进行修复程序吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes _
+        If Environment.Is64BitOperatingSystem = True Then
+            Me.Cursor = Cursors.AppStarting
+            ProgressBar.Value = ３
+            Me.labStatus.Text = "正在修复 Ballance 注册表项..."
+            File.Copy(Application.StartupPath & "\Data\Tools\Fix32.reg", Application.StartupPath & "\Data\Tools\Fix32+.reg", True)
+            If MessageBox.Show("您确定要进行修复程序吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes _
             And MessageBox.Show("请再次确认您的系统为 64 位。确认后将开始修复注册表项，请在接下来弹出的授权框中选择是。", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
-            Dim fix64 As System.IO.StreamWriter = New System.IO.StreamWriter(Application.StartupPath & "\Data\Tools\Fix32+.reg", True, System.Text.Encoding.Unicode)
-            Dim PathReg As String = TxtPath.Text.Replace("\", "\\")
-            ProgressBar.Value = 9
-            fix64.WriteLine(Chr(34) & "TargetDir" & Chr(34) & "=" & Chr(34) & PathReg & Chr(34))
-            fix64.Close()
-            System.Threading.Thread.Sleep(1000)
-            System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Fix32+.reg")
+                Dim fix64 As System.IO.StreamWriter = New System.IO.StreamWriter(Application.StartupPath & "\Data\Tools\Fix32+.reg", True, System.Text.Encoding.Unicode)
+                Dim PathReg As String = txtPath.Text.Replace("\", "\\")
+                ProgressBar.Value = 9
+                fix64.WriteLine(Chr(34) & "TargetDir" & Chr(34) & "=" & Chr(34) & PathReg & Chr(34))
+                fix64.Close()
+                System.Threading.Thread.Sleep(1000)
+                System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Fix32+.reg")
+            End If
+            System.Threading.Thread.Sleep(3000)
+            ProgressBar.Value = 13
+            Me.Cursor = Cursors.Default
+            TimerResetRapid.Enabled = True
+        Else
+            Me.Cursor = Cursors.AppStarting
+            ProgressBar.Value = ３
+            Me.labStatus.Text = "正在修复 Ballance 注册表项..."
+            File.Copy(Application.StartupPath & "\Data\Tools\Fix64.reg", Application.StartupPath & "\Data\Tools\Fix64+.reg", True)
+            If MessageBox.Show("您确定要进行修复程序吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes _
+                And MessageBox.Show("请再次确认您的系统为 64 位。确认后将开始修复注册表项，请在接下来弹出的授权框中选择是。", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.Yes Then
+                Dim fix64 As System.IO.StreamWriter = New System.IO.StreamWriter(Application.StartupPath & "\Data\Tools\Fix64+.reg", True, System.Text.Encoding.Unicode)
+                Dim PathReg As String = txtPath.Text.Replace("\", "\\")
+                ProgressBar.Value = 9
+                fix64.WriteLine(Chr(34) & "TargetDir" & Chr(34) & "=" & Chr(34) & PathReg & Chr(34))
+                fix64.Close()
+                System.Threading.Thread.Sleep(1000)
+                System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Fix64+.reg")
+            End If
+            System.Threading.Thread.Sleep(3000)
+            ProgressBar.Value = 13
+            Me.Cursor = Cursors.Default
+            TimerResetRapid.Enabled = True
         End If
-        System.Threading.Thread.Sleep(3000)
-        ProgressBar.Value = 13
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
 
     End Sub
+
+
 
     Private Sub Label27_Click(sender As Object, e As EventArgs) Handles Label27.Click
-        Label27.Text = "国庆节快乐！"
+        Label27.Text = "双十二快乐！"
     End Sub
 
     Private Sub TabAbout_Enter(sender As Object, e As EventArgs) Handles TabAbout.Enter
@@ -928,17 +995,51 @@ Public Class FrmMain
     End Sub
 
     Private Sub btnFullscreen_Click(sender As Object, e As EventArgs) Handles btnFullscreen.Click
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\ballance\Settings", "Fullscreen", "dword:00000001")
-        MessageBox.Show("已将您的 Ballance 设置为全屏模式！", "Ballamap", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        labStatus.Text = "正在将程序设置为全屏模式..."
+        If Environment.Is64BitOperatingSystem = True Then
+            If MessageBox.Show("您确定要将 Ballance 设置为全屏模式吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                ProgressBar.Value = 9
+                System.Threading.Thread.Sleep(500)
+                System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Fullscreen64.reg")
+                ProgressBar.Value = 13
+            End If
+
+        Else
+            If MessageBox.Show("您确定要将 Ballance 设置为全屏模式吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                ProgressBar.Value = 9
+                System.Threading.Thread.Sleep(500)
+                System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Fullscreen32.reg")
+                ProgressBar.Value = 13
+            End If
+
+        End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub btnWindow_Click(sender As Object, e As EventArgs) Handles btnWindow.Click
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\ballance\Settings", "Fullscreen", "dword:00000000")
-        MessageBox.Show("已将您的 Ballance 设置为全屏模式！", "Ballamap", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        labStatus.Text = "正在将程序设置为窗口化运行模式..."
+        If Environment.Is64BitOperatingSystem = True Then
+            If MessageBox.Show("您确定要将 Ballance 设置为窗口模式吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                ProgressBar.Value = 9
+                System.Threading.Thread.Sleep(500)
+                System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Window64.reg")
+                ProgressBar.Value = 13
+            End If
+
+        Else
+            If MessageBox.Show("您确定要将 Ballance 设置为窗口模式吗？", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                ProgressBar.Value = 9
+                System.Threading.Thread.Sleep(500)
+                System.Diagnostics.Process.Start(Application.StartupPath & "\Data\Tools\Window32.reg")
+                ProgressBar.Value = 13
+            End If
+
+        End If
+        TimerResetRapid.Enabled = True
     End Sub
 
     Private Sub TabMapDownload_Enter(sender As Object, e As EventArgs) Handles TabMapDownload.Enter
-        Dim url As New Uri("http://ballancemaps.ys168.com")
+        Dim url As New Uri("http://www.1807472016.ys168.com/")
         WebBrowser1.Url = url
     End Sub
     Private Sub AutoUpdateCheking()
@@ -1043,6 +1144,11 @@ Public Class FrmMain
             btnSetting.Text = "设置 >>"
         End If
         labStatus.Text = "就绪"
+        If My.Settings.Theme = "Bright" Then
+            radBright.Checked = True
+        Else
+            radDark.Checked = True
+        End If
     End Sub
 
 
@@ -1074,4 +1180,26 @@ Public Class FrmMain
     Private Sub btnUpdateSetting_Click(sender As Object, e As EventArgs) Handles btnUpdateSetting.Click
         TimerUpdate.Enabled = True
     End Sub
+
+    Private Sub TimerResetRapid_Tick(sender As Object, e As EventArgs) Handles TimerResetRapid.Tick
+        labStatus.Text = "就绪"
+        TimerResetRapid.Enabled = False
+    End Sub
+
+    Private Sub 程序设置ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 程序设置ToolStripMenuItem.Click
+        btnSetting_Click(sender, e)
+    End Sub
+
+    Private Sub labNMOinf_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub TabMapDownload_Click(sender As Object, e As EventArgs) Handles TabMapDownload.Click
+
+    End Sub
+
+    Private Sub TabLevelState_Enter(sender As Object, e As EventArgs) Handles TabLevelState.Enter
+        labLast.Text = "上次检查：" & My.Settings.LastChecked
+    End Sub
+
 End Class

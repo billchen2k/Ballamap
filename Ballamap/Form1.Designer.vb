@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmMain
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmMain
     '注意:  以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器修改它。  
     '不要使用代码编辑器修改它。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
@@ -32,6 +32,7 @@ Partial Class FrmMain
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabLevelState = New System.Windows.Forms.TabPage()
+        Me.labLast = New System.Windows.Forms.Label()
         Me.BtnRefreshState = New System.Windows.Forms.Button()
         Me.LabState13 = New System.Windows.Forms.Label()
         Me.LabState12 = New System.Windows.Forms.Label()
@@ -220,13 +221,10 @@ Partial Class FrmMain
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.gpxPersonal = New System.Windows.Forms.GroupBox()
-        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
-        Me.Label31 = New System.Windows.Forms.Label()
         Me.btnWindow = New System.Windows.Forms.Button()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.btnFullscreen = New System.Windows.Forms.Button()
         Me.gpbFix = New System.Windows.Forms.GroupBox()
-        Me.btnFix_x64 = New System.Windows.Forms.Button()
         Me.btnFix_x86 = New System.Windows.Forms.Button()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -251,14 +249,14 @@ Partial Class FrmMain
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.Label32 = New System.Windows.Forms.Label()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.TimerUpdate = New System.Windows.Forms.Timer(Me.components)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ProgressBar = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripbtnRun = New System.Windows.Forms.ToolStripSplitButton()
+        Me.ToolStripMenuBtnRun = New System.Windows.Forms.ToolStripMenuItem()
+        Me.程序设置ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuRed = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripMenuBtnRun = New System.Windows.Forms.ToolStripMenuItem()
         Me.labStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerReset = New System.Windows.Forms.Timer(Me.components)
         Me.btnRestoreB = New System.Windows.Forms.Button()
@@ -274,6 +272,10 @@ Partial Class FrmMain
         Me.Label39 = New System.Windows.Forms.Label()
         Me.radBright = New System.Windows.Forms.RadioButton()
         Me.radDark = New System.Windows.Forms.RadioButton()
+        Me.TimerResetRapid = New System.Windows.Forms.Timer(Me.components)
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.Tab.SuspendLayout()
         Me.TabWelcome.SuspendLayout()
         Me.TabLevelState.SuspendLayout()
@@ -344,15 +346,15 @@ Partial Class FrmMain
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.gpxPersonal.SuspendLayout()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpbFix.SuspendLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabAbout.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Tab
@@ -437,6 +439,7 @@ Partial Class FrmMain
         '
         'TabLevelState
         '
+        Me.TabLevelState.Controls.Add(Me.labLast)
         Me.TabLevelState.Controls.Add(Me.BtnRefreshState)
         Me.TabLevelState.Controls.Add(Me.LabState13)
         Me.TabLevelState.Controls.Add(Me.LabState12)
@@ -459,11 +462,20 @@ Partial Class FrmMain
         Me.TabLevelState.Text = "关卡状态"
         Me.TabLevelState.UseVisualStyleBackColor = True
         '
+        'labLast
+        '
+        Me.labLast.AutoSize = True
+        Me.labLast.Location = New System.Drawing.Point(16, 402)
+        Me.labLast.Name = "labLast"
+        Me.labLast.Size = New System.Drawing.Size(116, 17)
+        Me.labLast.TabIndex = 5
+        Me.labLast.Text = "上次检查：1970.1.1"
+        '
         'BtnRefreshState
         '
-        Me.BtnRefreshState.Location = New System.Drawing.Point(534, 364)
+        Me.BtnRefreshState.Location = New System.Drawing.Point(539, 372)
         Me.BtnRefreshState.Name = "BtnRefreshState"
-        Me.BtnRefreshState.Size = New System.Drawing.Size(119, 32)
+        Me.BtnRefreshState.Size = New System.Drawing.Size(114, 31)
         Me.BtnRefreshState.TabIndex = 4
         Me.BtnRefreshState.Text = "刷新/检测(&R)"
         Me.BtnRefreshState.UseVisualStyleBackColor = True
@@ -615,7 +627,7 @@ Partial Class FrmMain
         Me.TabMaps.Name = "TabMaps"
         Me.TabMaps.Padding = New System.Drawing.Point(27, 3)
         Me.TabMaps.SelectedIndex = 0
-        Me.TabMaps.Size = New System.Drawing.Size(676, 449)
+        Me.TabMaps.Size = New System.Drawing.Size(669, 449)
         Me.TabMaps.TabIndex = 0
         '
         'TabPage1
@@ -630,7 +642,7 @@ Partial Class FrmMain
         Me.TabPage1.Location = New System.Drawing.Point(4, 48)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage1.Size = New System.Drawing.Size(661, 397)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Level 1"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -667,7 +679,7 @@ Partial Class FrmMain
         '
         Me.TextBox1.BackColor = System.Drawing.Color.White
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Location = New System.Drawing.Point(6, 299)
+        Me.TextBox1.Location = New System.Drawing.Point(7, 281)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
@@ -715,7 +727,7 @@ Partial Class FrmMain
         Me.TabPage2.Location = New System.Drawing.Point(4, 48)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage2.Size = New System.Drawing.Size(661, 397)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Level 2"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -799,7 +811,7 @@ Partial Class FrmMain
         Me.TabPage3.Controls.Add(Me.picSky3)
         Me.TabPage3.Location = New System.Drawing.Point(4, 48)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage3.Size = New System.Drawing.Size(661, 397)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Level 3"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -883,7 +895,7 @@ Partial Class FrmMain
         Me.TabPage4.Controls.Add(Me.picSky4)
         Me.TabPage4.Location = New System.Drawing.Point(4, 48)
         Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage4.Size = New System.Drawing.Size(661, 397)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Level 4"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -967,7 +979,7 @@ Partial Class FrmMain
         Me.TabPage5.Controls.Add(Me.picSky5)
         Me.TabPage5.Location = New System.Drawing.Point(4, 48)
         Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage5.Size = New System.Drawing.Size(661, 397)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "Level 5"
         Me.TabPage5.UseVisualStyleBackColor = True
@@ -1051,7 +1063,7 @@ Partial Class FrmMain
         Me.TabPage6.Controls.Add(Me.picSky6)
         Me.TabPage6.Location = New System.Drawing.Point(4, 48)
         Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage6.Size = New System.Drawing.Size(661, 397)
         Me.TabPage6.TabIndex = 5
         Me.TabPage6.Text = "Level 6"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -1135,7 +1147,7 @@ Partial Class FrmMain
         Me.TabPage7.Controls.Add(Me.picSky7)
         Me.TabPage7.Location = New System.Drawing.Point(4, 48)
         Me.TabPage7.Name = "TabPage7"
-        Me.TabPage7.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage7.Size = New System.Drawing.Size(661, 397)
         Me.TabPage7.TabIndex = 6
         Me.TabPage7.Text = "Level 7"
         Me.TabPage7.UseVisualStyleBackColor = True
@@ -1219,7 +1231,7 @@ Partial Class FrmMain
         Me.TabPage8.Controls.Add(Me.picSky8)
         Me.TabPage8.Location = New System.Drawing.Point(4, 48)
         Me.TabPage8.Name = "TabPage8"
-        Me.TabPage8.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage8.Size = New System.Drawing.Size(661, 397)
         Me.TabPage8.TabIndex = 7
         Me.TabPage8.Text = "Level 8"
         Me.TabPage8.UseVisualStyleBackColor = True
@@ -1303,7 +1315,7 @@ Partial Class FrmMain
         Me.TabPage9.Controls.Add(Me.picSky9)
         Me.TabPage9.Location = New System.Drawing.Point(4, 48)
         Me.TabPage9.Name = "TabPage9"
-        Me.TabPage9.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage9.Size = New System.Drawing.Size(661, 397)
         Me.TabPage9.TabIndex = 8
         Me.TabPage9.Text = "Level 9"
         Me.TabPage9.UseVisualStyleBackColor = True
@@ -1387,7 +1399,7 @@ Partial Class FrmMain
         Me.TabPage10.Controls.Add(Me.picSky10)
         Me.TabPage10.Location = New System.Drawing.Point(4, 48)
         Me.TabPage10.Name = "TabPage10"
-        Me.TabPage10.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage10.Size = New System.Drawing.Size(661, 397)
         Me.TabPage10.TabIndex = 9
         Me.TabPage10.Text = "Level 10"
         Me.TabPage10.UseVisualStyleBackColor = True
@@ -1471,7 +1483,7 @@ Partial Class FrmMain
         Me.TabPage11.Controls.Add(Me.picSky11)
         Me.TabPage11.Location = New System.Drawing.Point(4, 48)
         Me.TabPage11.Name = "TabPage11"
-        Me.TabPage11.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage11.Size = New System.Drawing.Size(661, 397)
         Me.TabPage11.TabIndex = 10
         Me.TabPage11.Text = "Level 11"
         Me.TabPage11.UseVisualStyleBackColor = True
@@ -1555,7 +1567,7 @@ Partial Class FrmMain
         Me.TabPage12.Controls.Add(Me.picSky12)
         Me.TabPage12.Location = New System.Drawing.Point(4, 48)
         Me.TabPage12.Name = "TabPage12"
-        Me.TabPage12.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage12.Size = New System.Drawing.Size(661, 397)
         Me.TabPage12.TabIndex = 11
         Me.TabPage12.Text = "Level 12"
         Me.TabPage12.UseVisualStyleBackColor = True
@@ -1639,7 +1651,7 @@ Partial Class FrmMain
         Me.TabPage13.Controls.Add(Me.picSky13)
         Me.TabPage13.Location = New System.Drawing.Point(4, 48)
         Me.TabPage13.Name = "TabPage13"
-        Me.TabPage13.Size = New System.Drawing.Size(668, 397)
+        Me.TabPage13.Size = New System.Drawing.Size(661, 397)
         Me.TabPage13.TabIndex = 12
         Me.TabPage13.Text = "Level 13"
         Me.TabPage13.UseVisualStyleBackColor = True
@@ -1857,9 +1869,9 @@ Partial Class FrmMain
         '
         Me.BtnReset.Location = New System.Drawing.Point(16, 22)
         Me.BtnReset.Name = "BtnReset"
-        Me.BtnReset.Size = New System.Drawing.Size(106, 34)
+        Me.BtnReset.Size = New System.Drawing.Size(554, 34)
         Me.BtnReset.TabIndex = 1
-        Me.BtnReset.Text = "一键重置"
+        Me.BtnReset.Text = "一键重置 Level 1 ~ 13"
         Me.BtnReset.UseVisualStyleBackColor = True
         '
         'Label4
@@ -2344,7 +2356,7 @@ Partial Class FrmMain
         Me.TabTool.Name = "TabTool"
         Me.TabTool.Size = New System.Drawing.Size(672, 445)
         Me.TabTool.TabIndex = 8
-        Me.TabTool.Text = "附加工具"
+        Me.TabTool.Text = "附加功能"
         Me.TabTool.UseVisualStyleBackColor = True
         '
         'Panel1
@@ -2361,7 +2373,7 @@ Partial Class FrmMain
         '
         'Panel2
         '
-        Me.Panel2.Location = New System.Drawing.Point(3, 550)
+        Me.Panel2.Location = New System.Drawing.Point(3, 745)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(646, 32)
         Me.Panel2.TabIndex = 3
@@ -2372,7 +2384,7 @@ Partial Class FrmMain
         Me.GroupBox1.Controls.Add(Me.btnTitleApply)
         Me.GroupBox1.Controls.Add(Me.txtTitle)
         Me.GroupBox1.Controls.Add(Me.Label29)
-        Me.GroupBox1.Location = New System.Drawing.Point(26, 439)
+        Me.GroupBox1.Location = New System.Drawing.Point(26, 630)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(618, 105)
         Me.GroupBox1.TabIndex = 2
@@ -2414,41 +2426,19 @@ Partial Class FrmMain
         '
         'gpxPersonal
         '
-        Me.gpxPersonal.Controls.Add(Me.PictureBox7)
-        Me.gpxPersonal.Controls.Add(Me.Label31)
         Me.gpxPersonal.Controls.Add(Me.btnWindow)
         Me.gpxPersonal.Controls.Add(Me.Label30)
         Me.gpxPersonal.Controls.Add(Me.btnFullscreen)
-        Me.gpxPersonal.Location = New System.Drawing.Point(26, 268)
+        Me.gpxPersonal.Location = New System.Drawing.Point(26, 437)
         Me.gpxPersonal.Name = "gpxPersonal"
-        Me.gpxPersonal.Size = New System.Drawing.Size(619, 165)
+        Me.gpxPersonal.Size = New System.Drawing.Size(619, 187)
         Me.gpxPersonal.TabIndex = 1
         Me.gpxPersonal.TabStop = False
-        Me.gpxPersonal.Text = "窗口化（仅 32 位）（Beta）"
-        '
-        'PictureBox7
-        '
-        Me.PictureBox7.BackgroundImage = Global.Ballamap.My.Resources.Resources.Message_Warning
-        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox7.Location = New System.Drawing.Point(353, 103)
-        Me.PictureBox7.Name = "PictureBox7"
-        Me.PictureBox7.Size = New System.Drawing.Size(33, 33)
-        Me.PictureBox7.TabIndex = 5
-        Me.PictureBox7.TabStop = False
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label31.Location = New System.Drawing.Point(389, 113)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(200, 17)
-        Me.Label31.TabIndex = 3
-        Me.Label31.Text = "目前该功能较不稳定，不推荐使用！"
+        Me.gpxPersonal.Text = "全屏/窗口化"
         '
         'btnWindow
         '
-        Me.btnWindow.Location = New System.Drawing.Point(186, 101)
+        Me.btnWindow.Location = New System.Drawing.Point(186, 125)
         Me.btnWindow.Name = "btnWindow"
         Me.btnWindow.Size = New System.Drawing.Size(160, 40)
         Me.btnWindow.TabIndex = 2
@@ -2459,14 +2449,14 @@ Partial Class FrmMain
         '
         Me.Label30.Location = New System.Drawing.Point(19, 33)
         Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(579, 59)
+        Me.Label30.Size = New System.Drawing.Size(579, 80)
         Me.Label30.TabIndex = 0
-        Me.Label30.Text = "您可以设置 Ballance 是否以窗口化方式运行，目前只支持 32 位系统。需要管理员权限。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "注意：使用此功能后可能会导致某些分辨率问题，使得程序运行时白" &
-    "屏，出错或者无法正常运行。"
+        Me.Label30.Text = "您可以设置 Ballance 是否以窗口化方式运行。目前该功能已稳定。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "注意：使用此功能后可能会导致某些分辨率问题，使得程序运行时白屏，出错或者无法正常运行" &
+    "。出错时请修复注册表。"
         '
         'btnFullscreen
         '
-        Me.btnFullscreen.Location = New System.Drawing.Point(22, 101)
+        Me.btnFullscreen.Location = New System.Drawing.Point(22, 125)
         Me.btnFullscreen.Name = "btnFullscreen"
         Me.btnFullscreen.Size = New System.Drawing.Size(158, 40)
         Me.btnFullscreen.TabIndex = 2
@@ -2475,33 +2465,23 @@ Partial Class FrmMain
         '
         'gpbFix
         '
-        Me.gpbFix.Controls.Add(Me.btnFix_x64)
         Me.gpbFix.Controls.Add(Me.btnFix_x86)
         Me.gpbFix.Controls.Add(Me.PictureBox5)
         Me.gpbFix.Controls.Add(Me.Label28)
-        Me.gpbFix.Location = New System.Drawing.Point(26, 14)
+        Me.gpbFix.Location = New System.Drawing.Point(26, 183)
         Me.gpbFix.Name = "gpbFix"
         Me.gpbFix.Size = New System.Drawing.Size(620, 248)
         Me.gpbFix.TabIndex = 0
         Me.gpbFix.TabStop = False
         Me.gpbFix.Text = "程序注册表修复"
         '
-        'btnFix_x64
-        '
-        Me.btnFix_x64.Location = New System.Drawing.Point(186, 188)
-        Me.btnFix_x64.Name = "btnFix_x64"
-        Me.btnFix_x64.Size = New System.Drawing.Size(160, 40)
-        Me.btnFix_x64.TabIndex = 2
-        Me.btnFix_x64.Text = "修复（64位）"
-        Me.btnFix_x64.UseVisualStyleBackColor = True
-        '
         'btnFix_x86
         '
         Me.btnFix_x86.Location = New System.Drawing.Point(22, 188)
         Me.btnFix_x86.Name = "btnFix_x86"
-        Me.btnFix_x86.Size = New System.Drawing.Size(158, 40)
+        Me.btnFix_x86.Size = New System.Drawing.Size(335, 40)
         Me.btnFix_x86.TabIndex = 2
-        Me.btnFix_x86.Text = "修复（32位）"
+        Me.btnFix_x86.Text = "开始修复"
         Me.btnFix_x86.UseVisualStyleBackColor = True
         '
         'PictureBox5
@@ -2521,10 +2501,11 @@ Partial Class FrmMain
         Me.Label28.Size = New System.Drawing.Size(338, 134)
         Me.Label28.TabIndex = 0
         Me.Label28.Text = "当您点击立刻运行按钮后，无法在 Startup 中点击进入游戏，或者程序界面为德语（如右图），以及出现了其他不正常情况的时候，请使用此功能。修复后您的个人设置可能" &
-    "会丢失，但存档通常不会有问题。建议您在本程序的排行榜备份中先做好备份。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "请务必注意分辨您的系统为 32 位还是 64 位。"
+    "会丢失，但存档通常不会有问题。建议您在本程序的排行榜备份中先做好备份。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "程序将自动识别系统为 32 位还是 64 位。"
         '
         'TabAbout
         '
+        Me.TabAbout.Controls.Add(Me.PictureBox7)
         Me.TabAbout.Controls.Add(Me.LinkLabel4)
         Me.TabAbout.Controls.Add(Me.LinkLabel5)
         Me.TabAbout.Controls.Add(Me.LinkLabel3)
@@ -2532,6 +2513,7 @@ Partial Class FrmMain
         Me.TabAbout.Controls.Add(Me.LinkLabel1)
         Me.TabAbout.Controls.Add(Me.btnUpdate)
         Me.TabAbout.Controls.Add(Me.Label9)
+        Me.TabAbout.Controls.Add(Me.Label31)
         Me.TabAbout.Controls.Add(Me.Label8)
         Me.TabAbout.Controls.Add(Me.Label27)
         Me.TabAbout.Controls.Add(Me.Label7)
@@ -2581,10 +2563,10 @@ Partial Class FrmMain
         Me.LinkLabel2.AutoSize = True
         Me.LinkLabel2.Location = New System.Drawing.Point(152, 170)
         Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(167, 17)
+        Me.LinkLabel2.Size = New System.Drawing.Size(232, 17)
         Me.LinkLabel2.TabIndex = 7
         Me.LinkLabel2.TabStop = True
-        Me.LinkLabel2.Text = "http://eaglelions.ys168.com"
+        Me.LinkLabel2.Text = "https://github.com/Miraclest/Ballamap"
         '
         'LinkLabel1
         '
@@ -2630,7 +2612,7 @@ Partial Class FrmMain
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(93, 17)
         Me.Label27.TabIndex = 2
-        Me.Label27.Text = "（Build 1300）"
+        Me.Label27.Text = "（Build 1412）"
         '
         'Label7
         '
@@ -2639,7 +2621,7 @@ Partial Class FrmMain
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(33, 17)
         Me.Label7.TabIndex = 2
-        Me.Label7.Text = "V1.3"
+        Me.Label7.Text = "V1.4"
         '
         'Label6
         '
@@ -2655,18 +2637,18 @@ Partial Class FrmMain
         '
         Me.PictureBox2.BackgroundImage = CType(resources.GetObject("PictureBox2.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox2.Location = New System.Drawing.Point(32, 329)
+        Me.PictureBox2.Location = New System.Drawing.Point(32, 333)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(90, 101)
+        Me.PictureBox2.Size = New System.Drawing.Size(98, 97)
         Me.PictureBox2.TabIndex = 4
         Me.PictureBox2.TabStop = False
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(357, 329)
+        Me.PictureBox1.Location = New System.Drawing.Point(370, 333)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(299, 101)
+        Me.PictureBox1.Size = New System.Drawing.Size(299, 97)
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
         '
@@ -2674,16 +2656,16 @@ Partial Class FrmMain
         '
         Me.PictureBox3.BackgroundImage = CType(resources.GetObject("PictureBox3.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox3.Location = New System.Drawing.Point(74, 296)
+        Me.PictureBox3.Location = New System.Drawing.Point(110, 333)
         Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(335, 156)
+        Me.PictureBox3.Size = New System.Drawing.Size(166, 97)
         Me.PictureBox3.TabIndex = 5
         Me.PictureBox3.TabStop = False
         '
         'chkAutoUpdate
         '
         Me.chkAutoUpdate.AutoSize = True
-        Me.chkAutoUpdate.Location = New System.Drawing.Point(711, 366)
+        Me.chkAutoUpdate.Location = New System.Drawing.Point(709, 317)
         Me.chkAutoUpdate.Name = "chkAutoUpdate"
         Me.chkAutoUpdate.Size = New System.Drawing.Size(135, 21)
         Me.chkAutoUpdate.TabIndex = 4
@@ -2725,15 +2707,6 @@ Partial Class FrmMain
         Me.Label32.TabIndex = 7
         Me.Label32.Text = "Hello, Ballamap！ "
         '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox4.Location = New System.Drawing.Point(269, 0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(399, 397)
-        Me.PictureBox4.TabIndex = 0
-        Me.PictureBox4.TabStop = False
-        '
         'TimerUpdate
         '
         Me.TimerUpdate.Enabled = True
@@ -2744,30 +2717,44 @@ Partial Class FrmMain
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgressBar, Me.ToolStripbtnRun, Me.labStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 495)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(956, 23)
+        Me.StatusStrip1.Size = New System.Drawing.Size(697, 23)
         Me.StatusStrip1.TabIndex = 8
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ProgressBar
         '
+        Me.ProgressBar.AutoSize = False
         Me.ProgressBar.Maximum = 13
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(100, 17)
+        Me.ProgressBar.Size = New System.Drawing.Size(200, 17)
         Me.ProgressBar.Step = 1
         Me.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         '
         'ToolStripbtnRun
         '
-        Me.ToolStripbtnRun.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuRed, Me.ToolStripMenuItem1, Me.ToolStripMenuBtnRun})
+        Me.ToolStripbtnRun.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuBtnRun, Me.程序设置ToolStripMenuItem, Me.ToolStripMenuRed, Me.ToolStripMenuItem1})
         Me.ToolStripbtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
         Me.ToolStripbtnRun.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripbtnRun.Name = "ToolStripbtnRun"
         Me.ToolStripbtnRun.Size = New System.Drawing.Size(135, 21)
         Me.ToolStripbtnRun.Text = "运行 Ballance (&S)"
         '
+        'ToolStripMenuBtnRun
+        '
+        Me.ToolStripMenuBtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
+        Me.ToolStripMenuBtnRun.Name = "ToolStripMenuBtnRun"
+        Me.ToolStripMenuBtnRun.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuBtnRun.Text = "运行 Ballance"
+        '
+        '程序设置ToolStripMenuItem
+        '
+        Me.程序设置ToolStripMenuItem.Name = "程序设置ToolStripMenuItem"
+        Me.程序设置ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.程序设置ToolStripMenuItem.Text = "程序设置"
+        '
         'ToolStripMenuRed
         '
-        Me.ToolStripMenuRed.Image = Global.Ballamap.My.Resources.Resources.Message_Warning
+        Me.ToolStripMenuRed.Image = Global.Ballamap.My.Resources.Resources.Pencil
         Me.ToolStripMenuRed.Name = "ToolStripMenuRed"
         Me.ToolStripMenuRed.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuRed.Text = "......"
@@ -2776,13 +2763,6 @@ Partial Class FrmMain
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
-        '
-        'ToolStripMenuBtnRun
-        '
-        Me.ToolStripMenuBtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
-        Me.ToolStripMenuBtnRun.Name = "ToolStripMenuBtnRun"
-        Me.ToolStripMenuBtnRun.Size = New System.Drawing.Size(152, 22)
-        Me.ToolStripMenuBtnRun.Text = "运行 Ballance"
         '
         'labStatus
         '
@@ -2797,7 +2777,7 @@ Partial Class FrmMain
         '
         'btnRestoreB
         '
-        Me.btnRestoreB.Location = New System.Drawing.Point(821, 315)
+        Me.btnRestoreB.Location = New System.Drawing.Point(819, 266)
         Me.btnRestoreB.Name = "btnRestoreB"
         Me.btnRestoreB.Size = New System.Drawing.Size(114, 30)
         Me.btnRestoreB.TabIndex = 22
@@ -2814,7 +2794,7 @@ Partial Class FrmMain
         '
         'Label36
         '
-        Me.Label36.Location = New System.Drawing.Point(710, 232)
+        Me.Label36.Location = New System.Drawing.Point(708, 183)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(225, 91)
         Me.Label36.TabIndex = 16
@@ -2832,7 +2812,7 @@ Partial Class FrmMain
         'Label34
         '
         Me.Label34.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label34.Location = New System.Drawing.Point(711, 358)
+        Me.Label34.Location = New System.Drawing.Point(709, 309)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(230, 2)
         Me.Label34.TabIndex = 20
@@ -2840,7 +2820,7 @@ Partial Class FrmMain
         '
         'btnUpdateSetting
         '
-        Me.btnUpdateSetting.Location = New System.Drawing.Point(821, 403)
+        Me.btnUpdateSetting.Location = New System.Drawing.Point(819, 354)
         Me.btnUpdateSetting.Name = "btnUpdateSetting"
         Me.btnUpdateSetting.Size = New System.Drawing.Size(114, 30)
         Me.btnUpdateSetting.TabIndex = 17
@@ -2877,7 +2857,7 @@ Partial Class FrmMain
         'Label33
         '
         Me.Label33.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label33.Location = New System.Drawing.Point(711, 221)
+        Me.Label33.Location = New System.Drawing.Point(705, 399)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(230, 2)
         Me.Label33.TabIndex = 23
@@ -2886,39 +2866,75 @@ Partial Class FrmMain
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(708, 189)
+        Me.Label39.Location = New System.Drawing.Point(708, 415)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(68, 17)
         Me.Label39.TabIndex = 12
         Me.Label39.Text = "程序主题："
+        Me.Label39.Visible = False
         '
         'radBright
         '
         Me.radBright.AutoSize = True
-        Me.radBright.Location = New System.Drawing.Point(821, 189)
+        Me.radBright.Location = New System.Drawing.Point(821, 413)
         Me.radBright.Name = "radBright"
         Me.radBright.Size = New System.Drawing.Size(38, 21)
         Me.radBright.TabIndex = 24
         Me.radBright.TabStop = True
         Me.radBright.Text = "亮"
         Me.radBright.UseVisualStyleBackColor = True
+        Me.radBright.Visible = False
         '
         'radDark
         '
         Me.radDark.AutoSize = True
-        Me.radDark.Location = New System.Drawing.Point(887, 187)
+        Me.radDark.Checked = True
+        Me.radDark.Location = New System.Drawing.Point(887, 413)
         Me.radDark.Name = "radDark"
         Me.radDark.Size = New System.Drawing.Size(38, 21)
         Me.radDark.TabIndex = 24
         Me.radDark.TabStop = True
         Me.radDark.Text = "暗"
         Me.radDark.UseVisualStyleBackColor = True
+        Me.radDark.Visible = False
+        '
+        'TimerResetRapid
+        '
+        Me.TimerResetRapid.Interval = 1000
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox4.Location = New System.Drawing.Point(269, 0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(399, 397)
+        Me.PictureBox4.TabIndex = 0
+        Me.PictureBox4.TabStop = False
+        '
+        'PictureBox7
+        '
+        Me.PictureBox7.BackgroundImage = Global.Ballamap.My.Resources.Resources.GithubLLOGO
+        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox7.Location = New System.Drawing.Point(245, 346)
+        Me.PictureBox7.Name = "PictureBox7"
+        Me.PictureBox7.Size = New System.Drawing.Size(119, 54)
+        Me.PictureBox7.TabIndex = 8
+        Me.PictureBox7.TabStop = False
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(252, 403)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(84, 17)
+        Me.Label31.TabIndex = 2
+        Me.Label31.Text = "Open Source"
         '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(956, 518)
+        Me.ClientSize = New System.Drawing.Size(697, 518)
         Me.Controls.Add(Me.radDark)
         Me.Controls.Add(Me.radBright)
         Me.Controls.Add(Me.Label33)
@@ -3034,8 +3050,6 @@ Partial Class FrmMain
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.gpxPersonal.ResumeLayout(False)
-        Me.gpxPersonal.PerformLayout()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gpbFix.ResumeLayout(False)
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabAbout.ResumeLayout(False)
@@ -3043,9 +3057,10 @@ Partial Class FrmMain
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3262,7 +3277,6 @@ Partial Class FrmMain
     Friend WithEvents gpbFix As GroupBox
     Friend WithEvents Label28 As Label
     Friend WithEvents PictureBox5 As PictureBox
-    Friend WithEvents btnFix_x64 As Button
     Friend WithEvents btnFix_x86 As Button
     Friend WithEvents gpxPersonal As GroupBox
     Friend WithEvents Label29 As Label
@@ -3275,8 +3289,6 @@ Partial Class FrmMain
     Friend WithEvents btnWindow As Button
     Friend WithEvents Label30 As Label
     Friend WithEvents btnFullscreen As Button
-    Friend WithEvents PictureBox7 As PictureBox
-    Friend WithEvents Label31 As Label
     Friend WithEvents Label32 As Label
     Friend WithEvents TimerUpdate As Timer
     Friend WithEvents ToolStripbtnRun As ToolStripSplitButton
@@ -3300,4 +3312,9 @@ Partial Class FrmMain
     Friend WithEvents Label39 As Label
     Friend WithEvents radBright As RadioButton
     Friend WithEvents radDark As RadioButton
+    Friend WithEvents TimerResetRapid As Timer
+    Friend WithEvents 程序设置ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents labLast As Label
+    Friend WithEvents Label31 As Label
+    Friend WithEvents PictureBox7 As PictureBox
 End Class

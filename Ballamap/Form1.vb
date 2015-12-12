@@ -1030,4 +1030,48 @@ Public Class FrmMain
         labStatus.Text = "就绪"
 
     End Sub
+
+    Dim SettingState As Boolean = False
+    Private Sub btnSetting_Click(sender As Object, e As EventArgs) Handles btnSetting.Click
+        If SettingState = False Then
+            Me.Width = "970"
+            SettingState = True
+            btnSetting.Text = "返回 <<"
+        Else
+            Me.Width = "720"
+            SettingState = False
+            btnSetting.Text = "设置 >>"
+        End If
+        labStatus.Text = "就绪"
+    End Sub
+
+
+
+
+    Private Sub btnRestoreB_Click(sender As Object, e As EventArgs) Handles btnRestoreB.Click
+        If MessageBox.Show("确定要重置程序吗？您的 Ballamap 程序个人设置（如目录等）将会恢复为默认状态。", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes _
+        And MessageBox.Show("操作不可恢复，您的背景管理数据也将被清除。以后您可能需要重新导入。您的自定义地图和备份的排行榜将不会丢失。", "Ballamap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+            If Directory.Exists(Application.StartupPath & "\Data\Sky") = True Then
+                Directory.Delete(Application.StartupPath & "\Data\Sky", True)
+            End If
+            Me.Visible = False
+            My.Settings.AutoUpdate = True
+            My.Settings.BallancePath = "None"
+            My.Settings.Firstrun = True
+            My.Settings.Title = "Ballamap （Ballance 地图管理器）"
+
+            Shell(Application.StartupPath & "\Ballamap.exe", vbNormalFocus)
+            End
+
+        End If
+    End Sub
+
+    Private Sub txtPath_Click(sender As Object, e As EventArgs) Handles txtPath.Click
+        labStatus.Text = "您的 Ballance 目录为：" & txtPath.Text & "需要更改请返回后选择浏览。"
+
+    End Sub
+
+    Private Sub btnUpdateSetting_Click(sender As Object, e As EventArgs) Handles btnUpdateSetting.Click
+        TimerUpdate.Enabled = True
+    End Sub
 End Class

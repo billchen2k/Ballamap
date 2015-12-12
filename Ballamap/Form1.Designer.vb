@@ -26,9 +26,6 @@ Partial Class FrmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.Tab = New System.Windows.Forms.TabControl()
         Me.TabWelcome = New System.Windows.Forms.TabPage()
-        Me.chkAutoUpdate = New System.Windows.Forms.CheckBox()
-        Me.BtnBrowse = New System.Windows.Forms.Button()
-        Me.TxtPath = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -248,6 +245,8 @@ Partial Class FrmMain
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.chkAutoUpdate = New System.Windows.Forms.CheckBox()
+        Me.BtnBrowse = New System.Windows.Forms.Button()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
@@ -257,11 +256,24 @@ Partial Class FrmMain
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ProgressBar = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripbtnRun = New System.Windows.Forms.ToolStripSplitButton()
-        Me.ToolStripMenuBtnRun = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripMenuRed = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripMenuBtnRun = New System.Windows.Forms.ToolStripMenuItem()
         Me.labStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerReset = New System.Windows.Forms.Timer(Me.components)
+        Me.btnRestoreB = New System.Windows.Forms.Button()
+        Me.txtPath = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.btnUpdateSetting = New System.Windows.Forms.Button()
+        Me.btnSetting = New System.Windows.Forms.Button()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.radBright = New System.Windows.Forms.RadioButton()
+        Me.radDark = New System.Windows.Forms.RadioButton()
         Me.Tab.SuspendLayout()
         Me.TabWelcome.SuspendLayout()
         Me.TabLevelState.SuspendLayout()
@@ -362,9 +374,6 @@ Partial Class FrmMain
         '
         'TabWelcome
         '
-        Me.TabWelcome.Controls.Add(Me.chkAutoUpdate)
-        Me.TabWelcome.Controls.Add(Me.BtnBrowse)
-        Me.TabWelcome.Controls.Add(Me.TxtPath)
         Me.TabWelcome.Controls.Add(Me.Label3)
         Me.TabWelcome.Controls.Add(Me.Label14)
         Me.TabWelcome.Controls.Add(Me.Label10)
@@ -378,42 +387,13 @@ Partial Class FrmMain
         Me.TabWelcome.Text = "欢迎"
         Me.TabWelcome.UseVisualStyleBackColor = True
         '
-        'chkAutoUpdate
-        '
-        Me.chkAutoUpdate.AutoSize = True
-        Me.chkAutoUpdate.Location = New System.Drawing.Point(531, 387)
-        Me.chkAutoUpdate.Name = "chkAutoUpdate"
-        Me.chkAutoUpdate.Size = New System.Drawing.Size(135, 21)
-        Me.chkAutoUpdate.TabIndex = 4
-        Me.chkAutoUpdate.Text = "运行时自动检查更新"
-        Me.chkAutoUpdate.UseVisualStyleBackColor = True
-        '
-        'BtnBrowse
-        '
-        Me.BtnBrowse.Location = New System.Drawing.Point(588, 414)
-        Me.BtnBrowse.Name = "BtnBrowse"
-        Me.BtnBrowse.Size = New System.Drawing.Size(78, 25)
-        Me.BtnBrowse.TabIndex = 3
-        Me.BtnBrowse.Text = "浏览"
-        Me.BtnBrowse.UseVisualStyleBackColor = True
-        '
-        'TxtPath
-        '
-        Me.TxtPath.Enabled = False
-        Me.TxtPath.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.TxtPath.Location = New System.Drawing.Point(6, 414)
-        Me.TxtPath.Name = "TxtPath"
-        Me.TxtPath.Size = New System.Drawing.Size(576, 23)
-        Me.TxtPath.TabIndex = 2
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 394)
+        Me.Label3.Location = New System.Drawing.Point(6, 416)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(120, 17)
+        Me.Label3.Size = New System.Drawing.Size(0, 17)
         Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Ballance 安装目录："
         '
         'Label14
         '
@@ -2700,6 +2680,25 @@ Partial Class FrmMain
         Me.PictureBox3.TabIndex = 5
         Me.PictureBox3.TabStop = False
         '
+        'chkAutoUpdate
+        '
+        Me.chkAutoUpdate.AutoSize = True
+        Me.chkAutoUpdate.Location = New System.Drawing.Point(711, 366)
+        Me.chkAutoUpdate.Name = "chkAutoUpdate"
+        Me.chkAutoUpdate.Size = New System.Drawing.Size(135, 21)
+        Me.chkAutoUpdate.TabIndex = 4
+        Me.chkAutoUpdate.Text = "运行时自动检查更新"
+        Me.chkAutoUpdate.UseVisualStyleBackColor = True
+        '
+        'BtnBrowse
+        '
+        Me.BtnBrowse.Location = New System.Drawing.Point(821, 127)
+        Me.BtnBrowse.Name = "BtnBrowse"
+        Me.BtnBrowse.Size = New System.Drawing.Size(114, 34)
+        Me.BtnBrowse.TabIndex = 3
+        Me.BtnBrowse.Text = "浏览"
+        Me.BtnBrowse.UseVisualStyleBackColor = True
+        '
         'FolderBrowserDialog1
         '
         Me.FolderBrowserDialog1.Description = "请选择您的 Ballance 安装目录。请定位到 startup.exe 所在的目录。"
@@ -2738,14 +2737,14 @@ Partial Class FrmMain
         'TimerUpdate
         '
         Me.TimerUpdate.Enabled = True
-        Me.TimerUpdate.Interval = 3000
+        Me.TimerUpdate.Interval = 500
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgressBar, Me.ToolStripbtnRun, Me.labStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 495)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(704, 23)
+        Me.StatusStrip1.Size = New System.Drawing.Size(956, 23)
         Me.StatusStrip1.TabIndex = 8
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -2766,24 +2765,24 @@ Partial Class FrmMain
         Me.ToolStripbtnRun.Size = New System.Drawing.Size(135, 21)
         Me.ToolStripbtnRun.Text = "运行 Ballance (&S)"
         '
-        'ToolStripMenuBtnRun
-        '
-        Me.ToolStripMenuBtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
-        Me.ToolStripMenuBtnRun.Name = "ToolStripMenuBtnRun"
-        Me.ToolStripMenuBtnRun.Size = New System.Drawing.Size(152, 22)
-        Me.ToolStripMenuBtnRun.Text = "运行 Ballance"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
-        '
         'ToolStripMenuRed
         '
         Me.ToolStripMenuRed.Image = Global.Ballamap.My.Resources.Resources.Message_Warning
         Me.ToolStripMenuRed.Name = "ToolStripMenuRed"
         Me.ToolStripMenuRed.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuRed.Text = "......"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        '
+        'ToolStripMenuBtnRun
+        '
+        Me.ToolStripMenuBtnRun.Image = Global.Ballamap.My.Resources.Resources.Launch
+        Me.ToolStripMenuBtnRun.Name = "ToolStripMenuBtnRun"
+        Me.ToolStripMenuBtnRun.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuBtnRun.Text = "运行 Ballance"
         '
         'labStatus
         '
@@ -2796,11 +2795,145 @@ Partial Class FrmMain
         Me.TimerReset.Enabled = True
         Me.TimerReset.Interval = 12000
         '
+        'btnRestoreB
+        '
+        Me.btnRestoreB.Location = New System.Drawing.Point(821, 315)
+        Me.btnRestoreB.Name = "btnRestoreB"
+        Me.btnRestoreB.Size = New System.Drawing.Size(114, 30)
+        Me.btnRestoreB.TabIndex = 22
+        Me.btnRestoreB.Text = "重置"
+        Me.btnRestoreB.UseVisualStyleBackColor = True
+        '
+        'txtPath
+        '
+        Me.txtPath.Location = New System.Drawing.Point(708, 61)
+        Me.txtPath.Name = "txtPath"
+        Me.txtPath.Size = New System.Drawing.Size(217, 20)
+        Me.txtPath.TabIndex = 21
+        Me.txtPath.Text = "Dir--------------------------"
+        '
+        'Label36
+        '
+        Me.Label36.Location = New System.Drawing.Point(710, 232)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(225, 91)
+        Me.Label36.TabIndex = 16
+        Me.Label36.Text = "重置程序：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "重置程序设置，清除天空副本，恢复到初次启动程序的状态。"
+        '
+        'Label35
+        '
+        Me.Label35.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label35.Location = New System.Drawing.Point(711, 171)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(230, 2)
+        Me.Label35.TabIndex = 19
+        Me.Label35.Text = "-Line-"
+        '
+        'Label34
+        '
+        Me.Label34.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label34.Location = New System.Drawing.Point(711, 358)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(230, 2)
+        Me.Label34.TabIndex = 20
+        Me.Label34.Text = "-Line-"
+        '
+        'btnUpdateSetting
+        '
+        Me.btnUpdateSetting.Location = New System.Drawing.Point(821, 403)
+        Me.btnUpdateSetting.Name = "btnUpdateSetting"
+        Me.btnUpdateSetting.Size = New System.Drawing.Size(114, 30)
+        Me.btnUpdateSetting.TabIndex = 17
+        Me.btnUpdateSetting.Text = "检查更新"
+        Me.btnUpdateSetting.UseVisualStyleBackColor = True
+        '
+        'btnSetting
+        '
+        Me.btnSetting.Location = New System.Drawing.Point(588, 12)
+        Me.btnSetting.Name = "btnSetting"
+        Me.btnSetting.Size = New System.Drawing.Size(98, 24)
+        Me.btnSetting.TabIndex = 18
+        Me.btnSetting.Text = "设置 >>"
+        Me.btnSetting.UseVisualStyleBackColor = True
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(771, 93)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(164, 17)
+        Me.Label37.TabIndex = 12
+        Me.Label37.Text = "（若显示不完整请点击目录）"
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(708, 38)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(120, 17)
+        Me.Label38.TabIndex = 13
+        Me.Label38.Text = "Ballance 安装目录："
+        '
+        'Label33
+        '
+        Me.Label33.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label33.Location = New System.Drawing.Point(711, 221)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(230, 2)
+        Me.Label33.TabIndex = 23
+        Me.Label33.Text = "-Line-"
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(708, 189)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(68, 17)
+        Me.Label39.TabIndex = 12
+        Me.Label39.Text = "程序主题："
+        '
+        'radBright
+        '
+        Me.radBright.AutoSize = True
+        Me.radBright.Location = New System.Drawing.Point(821, 189)
+        Me.radBright.Name = "radBright"
+        Me.radBright.Size = New System.Drawing.Size(38, 21)
+        Me.radBright.TabIndex = 24
+        Me.radBright.TabStop = True
+        Me.radBright.Text = "亮"
+        Me.radBright.UseVisualStyleBackColor = True
+        '
+        'radDark
+        '
+        Me.radDark.AutoSize = True
+        Me.radDark.Location = New System.Drawing.Point(887, 187)
+        Me.radDark.Name = "radDark"
+        Me.radDark.Size = New System.Drawing.Size(38, 21)
+        Me.radDark.TabIndex = 24
+        Me.radDark.TabStop = True
+        Me.radDark.Text = "暗"
+        Me.radDark.UseVisualStyleBackColor = True
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(704, 518)
+        Me.ClientSize = New System.Drawing.Size(956, 518)
+        Me.Controls.Add(Me.radDark)
+        Me.Controls.Add(Me.radBright)
+        Me.Controls.Add(Me.Label33)
+        Me.Controls.Add(Me.chkAutoUpdate)
+        Me.Controls.Add(Me.btnRestoreB)
+        Me.Controls.Add(Me.BtnBrowse)
+        Me.Controls.Add(Me.txtPath)
+        Me.Controls.Add(Me.Label36)
+        Me.Controls.Add(Me.Label35)
+        Me.Controls.Add(Me.Label34)
+        Me.Controls.Add(Me.btnUpdateSetting)
+        Me.Controls.Add(Me.btnSetting)
+        Me.Controls.Add(Me.Label39)
+        Me.Controls.Add(Me.Label37)
+        Me.Controls.Add(Me.Label38)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Tab)
         Me.Controls.Add(Me.Label32)
@@ -2927,7 +3060,6 @@ Partial Class FrmMain
     Friend WithEvents TabMapDownload As System.Windows.Forms.TabPage
     Friend WithEvents TabBackup As System.Windows.Forms.TabPage
     Friend WithEvents TabAbout As System.Windows.Forms.TabPage
-    Friend WithEvents TxtPath As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents BtnBrowse As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
@@ -3155,4 +3287,17 @@ Partial Class FrmMain
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents labStatus As ToolStripStatusLabel
     Friend WithEvents TimerReset As Timer
+    Friend WithEvents btnRestoreB As Button
+    Friend WithEvents txtPath As Label
+    Friend WithEvents Label36 As Label
+    Friend WithEvents Label35 As Label
+    Friend WithEvents Label34 As Label
+    Friend WithEvents btnUpdateSetting As Button
+    Friend WithEvents btnSetting As Button
+    Friend WithEvents Label37 As Label
+    Friend WithEvents Label38 As Label
+    Friend WithEvents Label33 As Label
+    Friend WithEvents Label39 As Label
+    Friend WithEvents radBright As RadioButton
+    Friend WithEvents radDark As RadioButton
 End Class

@@ -1139,7 +1139,7 @@ Public Class FrmMain
             SettingState = True
             btnSetting.Text = "返回 <<"
         Else
-            Me.Width = "720"
+            Me.Width = "713"
             SettingState = False
             btnSetting.Text = "设置 >>"
         End If

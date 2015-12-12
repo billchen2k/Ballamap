@@ -229,6 +229,7 @@ Partial Class FrmMain
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.TabAbout = New System.Windows.Forms.TabPage()
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
@@ -236,6 +237,7 @@ Partial Class FrmMain
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -274,8 +276,6 @@ Partial Class FrmMain
         Me.radDark = New System.Windows.Forms.RadioButton()
         Me.TimerResetRapid = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
-        Me.Label31 = New System.Windows.Forms.Label()
         Me.Tab.SuspendLayout()
         Me.TabWelcome.SuspendLayout()
         Me.TabLevelState.SuspendLayout()
@@ -349,12 +349,12 @@ Partial Class FrmMain
         Me.gpbFix.SuspendLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabAbout.SuspendLayout()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Tab
@@ -2373,7 +2373,7 @@ Partial Class FrmMain
         '
         'Panel2
         '
-        Me.Panel2.Location = New System.Drawing.Point(3, 745)
+        Me.Panel2.Location = New System.Drawing.Point(0, 597)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(646, 32)
         Me.Panel2.TabIndex = 3
@@ -2384,7 +2384,7 @@ Partial Class FrmMain
         Me.GroupBox1.Controls.Add(Me.btnTitleApply)
         Me.GroupBox1.Controls.Add(Me.txtTitle)
         Me.GroupBox1.Controls.Add(Me.Label29)
-        Me.GroupBox1.Location = New System.Drawing.Point(26, 630)
+        Me.GroupBox1.Location = New System.Drawing.Point(11, 486)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(618, 105)
         Me.GroupBox1.TabIndex = 2
@@ -2429,7 +2429,7 @@ Partial Class FrmMain
         Me.gpxPersonal.Controls.Add(Me.btnWindow)
         Me.gpxPersonal.Controls.Add(Me.Label30)
         Me.gpxPersonal.Controls.Add(Me.btnFullscreen)
-        Me.gpxPersonal.Location = New System.Drawing.Point(26, 437)
+        Me.gpxPersonal.Location = New System.Drawing.Point(11, 279)
         Me.gpxPersonal.Name = "gpxPersonal"
         Me.gpxPersonal.Size = New System.Drawing.Size(619, 187)
         Me.gpxPersonal.TabIndex = 1
@@ -2468,7 +2468,7 @@ Partial Class FrmMain
         Me.gpbFix.Controls.Add(Me.btnFix_x86)
         Me.gpbFix.Controls.Add(Me.PictureBox5)
         Me.gpbFix.Controls.Add(Me.Label28)
-        Me.gpbFix.Location = New System.Drawing.Point(26, 183)
+        Me.gpbFix.Location = New System.Drawing.Point(16, 15)
         Me.gpbFix.Name = "gpbFix"
         Me.gpbFix.Size = New System.Drawing.Size(620, 248)
         Me.gpbFix.TabIndex = 0
@@ -2527,6 +2527,16 @@ Partial Class FrmMain
         Me.TabAbout.TabIndex = 6
         Me.TabAbout.Text = "关于"
         Me.TabAbout.UseVisualStyleBackColor = True
+        '
+        'PictureBox7
+        '
+        Me.PictureBox7.BackgroundImage = Global.Ballamap.My.Resources.Resources.GithubLLOGO
+        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox7.Location = New System.Drawing.Point(245, 346)
+        Me.PictureBox7.Name = "PictureBox7"
+        Me.PictureBox7.Size = New System.Drawing.Size(119, 54)
+        Me.PictureBox7.TabIndex = 8
+        Me.PictureBox7.TabStop = False
         '
         'LinkLabel4
         '
@@ -2595,6 +2605,15 @@ Partial Class FrmMain
         Me.Label9.Size = New System.Drawing.Size(550, 170)
         Me.Label9.TabIndex = 2
         Me.Label9.Text = resources.GetString("Label9.Text")
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(252, 403)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(84, 17)
+        Me.Label31.TabIndex = 2
+        Me.Label31.Text = "Open Source"
         '
         'Label8
         '
@@ -2911,25 +2930,6 @@ Partial Class FrmMain
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
-        'PictureBox7
-        '
-        Me.PictureBox7.BackgroundImage = Global.Ballamap.My.Resources.Resources.GithubLLOGO
-        Me.PictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox7.Location = New System.Drawing.Point(245, 346)
-        Me.PictureBox7.Name = "PictureBox7"
-        Me.PictureBox7.Size = New System.Drawing.Size(119, 54)
-        Me.PictureBox7.TabIndex = 8
-        Me.PictureBox7.TabStop = False
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(252, 403)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(84, 17)
-        Me.Label31.TabIndex = 2
-        Me.Label31.Text = "Open Source"
-        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
@@ -3054,13 +3054,13 @@ Partial Class FrmMain
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabAbout.ResumeLayout(False)
         Me.TabAbout.PerformLayout()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -276,6 +276,7 @@ Partial Class FrmMain
         Me.radDark = New System.Windows.Forms.RadioButton()
         Me.TimerResetRapid = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.Label40 = New System.Windows.Forms.Label()
         Me.Tab.SuspendLayout()
         Me.TabWelcome.SuspendLayout()
         Me.TabLevelState.SuspendLayout()
@@ -344,6 +345,7 @@ Partial Class FrmMain
         CType(Me.PictureBox17, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabTool.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.gpxPersonal.SuspendLayout()
         Me.gpbFix.SuspendLayout()
@@ -401,7 +403,7 @@ Partial Class FrmMain
         '
         Me.Label14.AutoSize = True
         Me.Label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label14.Location = New System.Drawing.Point(22, 293)
+        Me.Label14.Location = New System.Drawing.Point(17, 332)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(618, 17)
         Me.Label14.TabIndex = 1
@@ -411,7 +413,7 @@ Partial Class FrmMain
         '
         Me.Label10.AutoSize = True
         Me.Label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label10.Location = New System.Drawing.Point(39, 253)
+        Me.Label10.Location = New System.Drawing.Point(34, 292)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(594, 17)
         Me.Label10.TabIndex = 1
@@ -420,7 +422,7 @@ Partial Class FrmMain
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(216, 133)
+        Me.Label2.Location = New System.Drawing.Point(211, 172)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(202, 17)
         Me.Label2.TabIndex = 1
@@ -431,7 +433,7 @@ Partial Class FrmMain
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("微软雅黑 Light", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Label1.Location = New System.Drawing.Point(59, 23)
+        Me.Label1.Location = New System.Drawing.Point(54, 48)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(565, 83)
         Me.Label1.TabIndex = 0
@@ -1905,11 +1907,10 @@ Partial Class FrmMain
         '
         'WebBrowser1
         '
-        Me.WebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
         Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
         Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(672, 445)
+        Me.WebBrowser1.Size = New System.Drawing.Size(669, 425)
         Me.WebBrowser1.TabIndex = 0
         Me.WebBrowser1.Url = New System.Uri("", System.UriKind.Relative)
         '
@@ -2373,9 +2374,10 @@ Partial Class FrmMain
         '
         'Panel2
         '
-        Me.Panel2.Location = New System.Drawing.Point(0, 597)
+        Me.Panel2.Controls.Add(Me.Label40)
+        Me.Panel2.Location = New System.Drawing.Point(3, 608)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(646, 32)
+        Me.Panel2.Size = New System.Drawing.Size(646, 135)
         Me.Panel2.TabIndex = 3
         '
         'GroupBox1
@@ -2620,9 +2622,9 @@ Partial Class FrmMain
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(29, 75)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(146, 17)
+        Me.Label8.Size = New System.Drawing.Size(174, 17)
         Me.Label8.TabIndex = 2
-        Me.Label8.Text = "By EagleLions(Bill Chen)"
+        Me.Label8.Text = "By 羽铭 EagleLions(Bill Chen)"
         '
         'Label27
         '
@@ -2631,7 +2633,7 @@ Partial Class FrmMain
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(93, 17)
         Me.Label27.TabIndex = 2
-        Me.Label27.Text = "（Build 1412）"
+        Me.Label27.Text = "（Build 1516）"
         '
         'Label7
         '
@@ -2640,7 +2642,7 @@ Partial Class FrmMain
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(33, 17)
         Me.Label7.TabIndex = 2
-        Me.Label7.Text = "V1.4"
+        Me.Label7.Text = "V1.5"
         '
         'Label6
         '
@@ -2930,6 +2932,16 @@ Partial Class FrmMain
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
         '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.ForeColor = System.Drawing.Color.Silver
+        Me.Label40.Location = New System.Drawing.Point(249, 63)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(105, 17)
+        Me.Label40.TabIndex = 0
+        Me.Label40.Text = "~Coming Soon~"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
@@ -3047,6 +3059,8 @@ Partial Class FrmMain
         CType(Me.PictureBox17, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabTool.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.gpxPersonal.ResumeLayout(False)
@@ -3317,4 +3331,5 @@ Partial Class FrmMain
     Friend WithEvents labLast As Label
     Friend WithEvents Label31 As Label
     Friend WithEvents PictureBox7 As PictureBox
+    Friend WithEvents Label40 As Label
 End Class
